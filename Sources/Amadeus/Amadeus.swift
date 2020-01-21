@@ -18,7 +18,12 @@ public class Amadeus {
     }
     
     public convenience init(){
-        self.init(client_id: "", client_secret: "", enviroment: [:])
+        var client_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_ID"]!
+        var secret_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_SECRET"]!
+
+        self.init(client_id: client_id,
+                  client_secret: secret_id,
+                  enviroment: [:])
     }
     
     public convenience init(client_id: String, client_secret:String){

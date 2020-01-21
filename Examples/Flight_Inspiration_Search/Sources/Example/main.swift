@@ -17,6 +17,5 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "200
                                                 print("Data ", result?.body)
                                             }
                                         })
-
 RunLoop.main.run()
 
