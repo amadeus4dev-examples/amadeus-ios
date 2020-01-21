@@ -3,7 +3,7 @@
 
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
-For more details see the [Swist
+For more details see the [Swift
 documentation](https://amadeus4dev.github.io/amadeus-swift/) on
 [Amadeus.com](https://developers.amadeus.com).
 
