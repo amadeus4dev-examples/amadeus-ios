@@ -13,7 +13,6 @@ public func makeHTTPGetRequestAuth(_ path: String, auth: String, body: String, c
         url += "http://"
     }
     url += client.configuration.host + path + body
-    print("URL GET:", url)
 
     let request = NSMutableURLRequest(url: URL(string: url)!)
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -46,23 +45,20 @@ public func makeHTTPPostRequest(_ path: String, body: String, ssl:Bool, host:Str
         url += "http://"
     }
     url += host + "/" + path
-    print("URL POST:", url)
 
     let request = NSMutableURLRequest(url: URL(string: url)!)
-
+    
     request.httpMethod = "POST"
     request.httpBody = body.data(using: String.Encoding.utf8);
     
     request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     
-    print(request)
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
         
         do{
             if let jsonData = data {
                 let json:JSON = try JSON(data: jsonData)
-                print(json)
                 onCompletion(json, nil)
             } else {
                 onCompletion(JSON.null, error as NSError?)
@@ -91,8 +87,9 @@ private func generateGetParameters(data: [String:String]) -> String{
 
 public func generateURL(client:Client, path:String, data:[String:String]) -> String{
     var url = "http://"
+
     if client.configuration.ssl {
-        url += "https://"
+        url = "https://"
     }
     
     url += client.configuration.host + "/" + path
