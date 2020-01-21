@@ -69,9 +69,6 @@ in-depth information about every SDK method, it's arguments and return types.
 
 * [Get Started](https://amadeus4dev.github.io/amadeus-swift/) documentation
 * [Initialize the SDK](https://amadeus4dev.github.io/amadeus-swift/)
-* [Find an Airport](https://amadeus4dev.github.io/amadeus-swift/#airports)
-* [Find a Flight](https://amadeus4dev.github.io/amadeus-swift/#flightoffers)
-* [Get Flight Inspiration](https://amadeus4dev.github.io/amadeus-swift/#flightoffers)
 
 ## Making API calls
 
@@ -85,16 +82,6 @@ amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompl
     ...
 })
 ```
-
-Similarly, to select a resource by ID, you can pass in the ID to the **singular** path.
-
-For example,  `GET /v1/shopping/hotel/123/offers/234` would be:
-
-```swift
-amaswua.shopping.hotel(hotelId: "E5C6F41E18EDA2E60884A593B4F5BC17625044FC42DA6F2AA25172C4327FC565").offer(offerId: "1234").get(...)
-
-```
-
 
 ## OnCompletion
 
