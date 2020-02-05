@@ -1,21 +1,29 @@
 # Amadeus Swift SDK
 
+[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-swift.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-swift)
+
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
 For more details see the Swift documentation on [Amadeus.com](https://developers.amadeus.com).
 
 ## Installation
 
-The SDK can be installed via `Swift Package Manager`. Edit the `Package.swift`
-manifest file inside the directory where your project is located and add
+The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift`
+manifest file inside the directory where your project is located and add:
+
 `amadeus-swift` as dependency:
 
 ```swift
+    import PackageDescription
 
-    dependencies: [
-        .package(url: "https://github.com/amadeus4dev/amadeus-swift", from: "1.0.0"),
-    ],
+    let package = Package(
+        name: "YOUR_PROJECT_NAME",
+        dependencies: [
+            .package(url: "https://github.com/amadeus4dev/amadeus-swift.git", from: "1.0.0"),
+        ]
+    )
 ```
+Then run `swift build` whenever you get prepared.
 
 ## Getting Started
 
