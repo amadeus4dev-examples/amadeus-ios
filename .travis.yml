@@ -2,4 +2,4 @@ language: objective-c
 osx_image: xcode10.3
 xcode_project: Amadeus.xcodeproj
 xcode_scheme: Amadeus-Package
-xcode_destination: macOS
+xcode_destination: platform=macOS
