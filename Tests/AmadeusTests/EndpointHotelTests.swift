@@ -25,7 +25,7 @@ class EndpointHotelTests: XCTestCase {
         
         self.client.shopping.hotelOffers.get(data:["cityCode": "PAR"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -44,7 +44,7 @@ class EndpointHotelTests: XCTestCase {
                                                          "paymentPolicy": "NONE",
                                                          "view": "FULL_ALL_IMAGES"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -61,7 +61,7 @@ class EndpointHotelTests: XCTestCase {
                                                                                                                           onCompletion: {
 
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })

@@ -34,7 +34,7 @@ public class Amadeus {
     }
     
     private func getUrl(data:Response, keyword:String) -> String{
-        return data.body["meta"]["links"][keyword].string ?? "error"
+        return data.result["meta"]["links"][keyword].string ?? "error"
         
     }
     

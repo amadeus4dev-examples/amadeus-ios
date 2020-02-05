@@ -26,10 +26,10 @@ class EndpointAirTests: XCTestCase {
         self.client.shopping.flightOffers.get(data: ["origin": "MAD",
                                                      "destination": "BER",
                                                      "departureDate": "2020-05-16"], onCompletion: {
-            data,error in
-            XCTAssertEqual(data?.responseCode, 200)
-            XCTAssertNotNil(data)
-            expectation.fulfill()
+            (data,error) in
+              XCTAssertEqual(data?.statusCode, 200)
+              XCTAssertNotNil(data)
+              expectation.fulfill()
         })
         
         wait(for: [expectation], timeout: 60)
@@ -43,7 +43,7 @@ class EndpointAirTests: XCTestCase {
         self.client.shopping.flightDestinations.get(data: ["origin": "MAD",
                                                            "maxPrice": "500"], onCompletion: {
             data, error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -59,7 +59,7 @@ class EndpointAirTests: XCTestCase {
         self.client.shopping.flightDates.get(data:["origin": "MAD",
                                                    "destination": "BOS"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -74,7 +74,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -89,7 +89,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -104,7 +104,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD", "period": "2017", "direction": "ARRIVING"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -120,7 +120,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.referenceData.urls.checkinLinks.get(data:["airlineCode": "BA"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -136,7 +136,7 @@ class EndpointAirTests: XCTestCase {
         self.client.referenceData.locations.airports.get(data:["longitude": "2.55",
                                                                "latitude": "49.0000"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             self.client.next(data: data!, onCompletion: {data, err in
                 XCTAssertNotNil(data as Any)
                 expectation.fulfill()
@@ -152,7 +152,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.referenceData.locations.get(data:["subType": "AIRPORT,CITY", "keyword": "lon"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -167,7 +167,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.referenceData.location(locationId: "CMUC").get(data:[:], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
@@ -182,7 +182,7 @@ class EndpointAirTests: XCTestCase {
         
         self.client.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
             data,error in
-            XCTAssertEqual(data?.responseCode, 200)
+            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
