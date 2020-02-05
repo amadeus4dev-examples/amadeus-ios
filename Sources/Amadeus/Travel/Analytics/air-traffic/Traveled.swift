@@ -39,7 +39,7 @@ public class Traveled{
         client.getAccessToken(onCompletion: {
             (auth) in
             if auth != "error" {
-                let path = self.generateURLTraveled(data: data)
+                let path = generateURL(client: self.client, path: traveled, data: data)
                 getRequest(path: path, auth: auth, client: self.client, onCompletion: {
                     data,err  in
                     if let error = err {
@@ -52,9 +52,5 @@ public class Traveled{
                 onCompletion(nil,nil)
             }
         })
-    }
-    
-    private func generateURLTraveled(data:[String:String]) -> String{
-        return generateURL(client: self.client, path: traveled, data: data)
     }
 }

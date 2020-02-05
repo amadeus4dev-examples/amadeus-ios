@@ -1,6 +1,5 @@
 import Foundation
 
-/// A namespaced amadeus
 public class Amadeus {
     
     public let client:Client
@@ -11,15 +10,17 @@ public class Amadeus {
     
     
     public init(client_id: String, client_secret:String, enviroment:[String:Any]) {
-        client = Client(client_id: client_id, client_secret: client_secret, enviroment: enviroment)
+        client = Client(client_id: client_id,
+                        client_secret: client_secret,
+                        enviroment: enviroment)
         shopping = Shopping(client: client)
         travel = Travel(client: client)
         referenceData = ReferenceData(client: client)
     }
-    
+
     public convenience init(){
-        var client_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_ID"]!
-        var secret_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_SECRET"]!
+        let client_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_ID"]!
+        let secret_id  = ProcessInfo.processInfo.environment["AMADEUS_CLIENT_SECRET"]!
 
         self.init(client_id: client_id,
                   client_secret: secret_id,
@@ -27,7 +28,9 @@ public class Amadeus {
     }
     
     public convenience init(client_id: String, client_secret:String){
-        self.init(client_id:client_id, client_secret:client_secret,enviroment: [:])
+        self.init(client_id:client_id,
+                  client_secret:client_secret,
+                  enviroment: [:])
     }
     
     private func getUrl(data:Response, keyword:String) -> String{

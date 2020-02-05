@@ -46,7 +46,6 @@ public class FlightDestinations{
                     if let error = err {
                         onCompletion(nil,error)
                     }else{
-                        print(data)
                         onCompletion(data,nil)
                     }
                 })

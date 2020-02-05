@@ -1,9 +1,7 @@
 import Foundation
 import SwiftyJSON
 
-fileprivate let hotelOffer = "v2/shopping/hoteloffers/:hotel_id"
-
-/// A namespaced client for the `v1/shopping/hotel-offers` endpoints
+/// A namespaced client for the `v2/shopping/hotel-offers/` endpoints
 ///
 /// Access via the `Amadeus` object
 /// ```swift
@@ -20,12 +18,12 @@ public class HotelOffer{
         self.hotelId = hotelId
     }
     
-    
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
         client.getAccessToken(onCompletion: {
             (auth) in
             if auth != "error" {
-                let path = self.generateURLHotelOffers(data: data)
+                let endpoint = "v2/shopping/hotel-offers/" + self.hotelId
+                let path = generateURL(client: self.client, path: endpoint, data: data)
                 getRequest(path: path, auth: auth, client: self.client, onCompletion: {
                     data,err  in
                     if let error = err {
@@ -39,10 +37,4 @@ public class HotelOffer{
             }
         })
     }
-    
-    private func generateURLHotelOffers(data:[String:String]) -> String{
-        let path = "v2/shopping/hoteloffers/" + self.hotelId + "/"
-        return generateURL(client: self.client, path: path, data: data)
-    }
-    
 }

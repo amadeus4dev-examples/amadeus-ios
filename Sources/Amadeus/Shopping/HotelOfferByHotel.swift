@@ -23,7 +23,7 @@ public class HotelOfferByHotel{
         client.getAccessToken(onCompletion: {
             (auth) in
             if auth != "error" {
-                let path = self.generateURLHotelOffers(data: data)
+                let path = generateURL(client: self.client, path: hotelOfferByHotel, data: data)
                 getRequest(path: path, auth: auth, client: self.client, onCompletion: {
                     data,err  in
                     if let error = err {
@@ -37,10 +37,4 @@ public class HotelOfferByHotel{
             }
         })
     }
-    
-    private func generateURLHotelOffers(data:[String:String]) -> String{
-        
-        return generateURL(client: self.client, path: hotelOfferByHotel, data: data)
-    }
-    
 }

@@ -1,11 +1,17 @@
 import XCTest
-import Amadeus
+@testable import Amadeus
 
 class AmadeusTests: XCTestCase {
     
+    var client : Amadeus!
+    
+    override func setUp() {
+        super.setUp()
+        self.client = Amadeus()
+    }
+    
     func testGenerateURL() {
-        let ama = Amadeus();
-        XCTAssertEqual( generateURL(client: ama.client, path: "path", data: ["test":"test"]), "https://test.api.amadeus.com/path?test=test", "Prueba")
+        XCTAssertEqual( generateURL(client: self.client.client, path: "path", data: ["foo":"bar"]), "https://test.api.amadeus.com/path?foo=bar", "")
     }
     
     func testConfiguration() {

@@ -4,23 +4,26 @@ import SwiftyJSON
 public typealias ServiceResponse = (JSON, NSError?) -> Void
 public typealias AmadeusResponse = (Response?, Error?) -> Void
 
-public func makeHTTPGetRequestAuth(_ path: String, auth: String, body: String, client:Client, onCompletion: @escaping ServiceResponse) {
-    var url:String = ""
+public func makeHTTPGetRequestAuth(_ path: String,
+                                   auth: String,
+                                   body: String,
+                                   client:Client,
+                                   onCompletion: @escaping ServiceResponse) {
+    var url:String = "http://"
     
     if client.configuration.ssl {
-        url += "https://"
-    }else{
-        url += "http://"
+        url = "http://"
     }
     url += client.configuration.host + path + body
 
     let request = NSMutableURLRequest(url: URL(string: url)!)
+
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer \(auth)", forHTTPHeaderField: "Authorization")
     
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-        
+
         do{
             if let jsonData = data {
                 let json:JSON = try JSON(data: jsonData)
@@ -31,18 +34,19 @@ public func makeHTTPGetRequestAuth(_ path: String, auth: String, body: String, c
         }catch let err as NSError{
             print("error:",err)
         }
-        
     })
     task.resume()
 }
 
-public func makeHTTPPostRequest(_ path: String, body: String, ssl:Bool, host:String, onCompletion: @escaping ServiceResponse) {
-    var url:String = ""
+public func makeHTTPPostRequest(_ path: String,
+                                body: String,
+                                ssl:Bool,
+                                host:String,
+                                onCompletion: @escaping ServiceResponse) {
+    var url:String = "http://"
     
     if ssl {
-        url += "https://"
-    }else{
-        url += "http://"
+        url = "https://"
     }
     url += host + "/" + path
 
@@ -93,12 +97,15 @@ public func generateURL(client:Client, path:String, data:[String:String]) -> Str
     }
     
     url += client.configuration.host + "/" + path
-    
     url += generateGetParameters(data: data)
+
     return url
 }
 
-public func getRequest(path: String, auth: String, client:Client, onCompletion: @escaping AmadeusResponse) {
+public func getRequest(path: String,
+                       auth: String,
+                       client:Client,
+                       onCompletion: @escaping AmadeusResponse) {
     
     let url = path
     
