@@ -1,14 +1,21 @@
 # Amadeus Swift SDK
 
-
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
-For more details see the [Swift
-documentation](https://amadeus4dev.github.io/amadeus-swift/) on
-[Amadeus.com](https://developers.amadeus.com).
+For more details see the Swift documentation on [Amadeus.com](https://developers.amadeus.com).
 
 ## Installation
 
+The SDK can be installed via `Swift Package Manager`. Edit the `Package.swift`
+manifest file inside the directory where your project is located and add
+`amadeus` as dependency:
+
+```swift
+
+    dependencies: [
+        .package(url: "https://github.com/amadeus4dev/amadeus-swift", from: "1.0.0"),
+    ],
+```
 
 ## Getting Started
 
@@ -18,17 +25,19 @@ application](https://developers.amadeus.com/my-apps).
 
 ```swift
 var amadeus: Amadeus!
+
 amadeus = Amadeus(
     client_id: "REPLACE_BY_YOUR_API_KEY",
     client_secret: "REPLACE_BY_YOUR_API_SECRET"
 )
 
-
 amadeus.referenceData.urls.checkinLinks.get(
-    data: ["airlineCode": "BA"], 
+    data: ["airlineCode": "BA"],
     onCompletion: {
-        data in
-        print("DATA ES: ", data)
+       (result, error) in
+       if error == nil {
+         print("Data ", result?.data)
+       }
     }
 )
 ```
@@ -58,18 +67,6 @@ dashboard](https://developers.amadeus.com/my-apps). [Sign
 up](https://developers.amadeus.com/create-account) for an account today.
 
 
-
-## Documentation
-
-Amadeus has a large set of APIs, and our documentation is here to get you
-started today. Head over to our
-[Reference](https://amadeus4dev.github.io/amadeus-swift/) documentation for
-in-depth information about every SDK method, it's arguments and return types.
-
-
-* [Get Started](https://amadeus4dev.github.io/amadeus-swift/) documentation
-* [Initialize the SDK](https://amadeus4dev.github.io/amadeus-swift/)
-
 ## Making API calls
 
 This library conveniently maps every API path to a similar path.
@@ -77,26 +74,79 @@ This library conveniently maps every API path to a similar path.
 For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
 
 ```swift
-amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
-    data in 
-    ...
+  amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
+     data,error in 
+     ...
 })
 ```
 
-## OnCompletion
+Similarly, to select a resource by ID, you can pass in the ID to the
+singular path.
+
+For example, ``GET /v2/shopping/hotel-offers/XZY`` would be:
+
+```swift
+  amadeus.shopping.hotelOffer(hotelId: "176383FB301E78D430F81A6CB6134EBF801DCC1AE14FC9DCCE84D17C6B519F5B").get(data:[:], 
+            onCompletion: {
+               data,error in 
+               ...
+}
+```
+
+## Response
 
 Every API call returns a `OnCompletion` that either resolves or rejects. Every
 resolved API call returns a `JSON` object.
 
-For a failed API call it returns a `JSON` object containing the (parsed or unparsed) response, the request, and an error code.
+If the API call contained a JSON response it will parse the JSON into the
+``.result`` attribute.  If this data also contains a ``data`` key, it will make
+that available as the ``.data`` attribute. The raw body of the response is
+always available as the ``.body`` attribute.
 
 ```swift
 amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
-    data in
-     print(data) => The raw body
+    result,error in
+
+      print(result.body) // => The raw response, as a string
+      print(result.data) // => JSON data field extracted from the JSON
+      print(result.result) // => The body parsed as JSON, if the result was parsable
+      print(result.responseCode) => HTTP Response code
 })
 ```
 
+## Pagination
+
+
+If an API endpoint supports pagination, the other pages are available
+under the ``.next``, ``.previous``, ``.last`` and ``.first`` methods.
+
+
+```swift
+amadeus.referenceData.locations.airports.get(data:["longitude": "2.55",
+                                                   "latitude": "49.0000"], onCompletion: {
+    data,error in
+      amadeus.next(data: data!, onCompletion: {
+        data, err in
+            ....
+})
+```
+
+If a page is not available, the method will return ``null``.
+
+
+## Logging & Debugging
+
+The SDK makes it easy to debug your API calls.
+
+```swift
+var amadeus: Amadeus!
+
+amadeus = Amadeus(
+    client_id: "REPLACE_BY_YOUR_API_KEY",
+    client_secret: "REPLACE_BY_YOUR_API_SECRET",
+    environment: ["log_level" : "debug"])
+)
+```
 
 ## List of supported endpoints
 
@@ -104,115 +154,55 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "100
 
 // Flight Inspiration Search
 amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
-    data in
-        ...
-})
 
 // Flight Cheapest Date Search
-amadeus.shopping.flightDates.get(data:["origin": "LHR", "destination": "PAR"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.shopping.flightDates.get(data:["origin": "LHR", "destination": "PAR"], onCompletion: {
 
 // Flight Low-fare Search
-ama.shopping.flightOffers.get(data: ["origin": "MAD", "destination": "LUX", "departureDate": "2018-12-10"], 
-onCompletion: {
-    data in
-        ...
-})
+ama.shopping.flightOffers.get(data: ["origin": "MAD", "destination": "LUX", "departureDate": "2018-12-10"], onCompletion: {
 
 // Flight Checkin Links
-amadeus.referenceData.urls.checkinLinks.get(
-data: ["airlineCode": "BA"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
 
 // Airline Code Lookup
-amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
 
-// Airports and City Search (autocomplete)
-// Find all the cities and airports starting by 'LON'
+// Airports and City Search
 amadeus.referenceData.locations.get(data:["subType": "AIRPORT,CITY", "keyword": "lon"], onCompletion: {
-    data in
-        ...
-})
 
 // Get a specific city or airport based on its id
-amadeus.referenceData.location(locationId: "ALHR").get(data:[:], 
-onCompletion: {
-    data in
-        ...
+amadeus.referenceData.location(locationId: "ALHR").get(data:[:], onCompletion: {
 })
 
 // Airport Nearest Relevant Airport
-amadeus.referenceData.locations.airports.get(data:["longitude": "49.0000", "latitude": "2.55"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.referenceData.locations.airports.get(data:["longitude": "49.0000", "latitude": "2.55"], onCompletion: {
 
 // Flight Most Searched Destinations
-// Which were the most searched flight destinations from Madrid in August 2017?
-amadeus.travel.analytics.airTraffic.searched.get(data:["originCityCode":"MAD", "marketCountryCode": "ES", "searchPeriod": "2017-08"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.travel.analytics.airTraffic.searched.get(data:["originCityCode":"MAD", "marketCountryCode": "ES", "searchPeriod": "2020-08"],  onCompletion: {
 
 // How many people in Spain searched for a trip from Madrid to New-York in September 2017?
-amadeus.travel.analytics.airTraffic.searchedByDestination.get(data:["originCityCode":"MAD", "destinationCityCode":"NYC", "marketCountryCode": "ES", "searchPeriod": "2017-08"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.travel.analytics.airTraffic.searchedByDestination.get(data:["originCityCode":"MAD", "destinationCityCode":"NYC", "marketCountryCode": "ES", "searchPeriod": "2017-08"], onCompletion: {
 
 // Flight Most Booked Destinations
-amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD", "period": "2017-11"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
 
 // Flight Most Traveled Destinations
-amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD", "period": "2017-11"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
 
 // Flight Busiest Traveling Period
-amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD", "period": "2017", "direction": "ARRIVING"], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD", "period": "2017", "direction": "ARRIVING"], onCompletion: {
 
 // Hotel Search API
 // Get list of hotels by city code
-amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD", "period": "2017"], onCompletion: {
-    data in
-        ...
+amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD"], onCompletion: {
 })
 // Get list of offers for a specific hotel
-amadeus.shopping.hotel(hotelId: "SMPARCOL").hotelOffers.get(data:[:], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
+                                                        "roomQuantity": "1",onCompletion: {
+
 amadeus.shopping.hotel('SMPARCOL').hotelOffers.get()
 // Confirm the availability of a specific offer for a specific hotel
-amadeus.shopping.hotel(hotelId: "SMPARCOL").offer(offerId: "4BA070CE929E135B3268A9F2D0C51E9D4A6CF318BA10485322FA2C7E78C7852E").get(data:[:], 
-onCompletion: {
-    data in
-        ...
-})
+amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: {
 ```
 
 ## Development & Contributing
@@ -231,6 +221,5 @@ help you. You can find us on
 [StackOverflow](https://stackoverflow.com/questions/tagged/amadeus) and
 [email](mailto:developers@amadeus.com).
 
-[npmjs]: https://www.npmjs.com/package/amadeus
 [travis]: http://travis-ci.org/amadeus4dev/amadeus-swift
 [support]: http://developers.amadeus.com/support
