@@ -1,6 +1,6 @@
 # Amadeus Swift SDK
 
-[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-swift.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-swift)
+[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-swift.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-swift) ![Platform](https://img.shields.io/badge/platforms-macOS%2010.10%20%7C%20-F28D00.svg) 
 
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
