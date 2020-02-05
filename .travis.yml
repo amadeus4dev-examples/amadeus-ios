@@ -1,0 +1,4 @@
+language: swift
+osx_image: xcode10.3
+xcode_project: Amadeus.xcodeproj
+xcode_destination: macOS
