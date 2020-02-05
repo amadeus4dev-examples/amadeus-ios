@@ -9,9 +9,7 @@ For more details see the Swift documentation on [Amadeus.com](https://developers
 ## Installation
 
 The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift`
-manifest file inside the directory where your project is located and add:
-
-`amadeus-swift` as dependency:
+manifest file inside the directory where your project is located and add `amadeus-swift` as dependency:
 
 ```swift
     import PackageDescription
