@@ -61,7 +61,6 @@ class EndpointHotelTests: XCTestCase {
                                                                                                                           onCompletion: {
 
             data,error in
-            XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
             expectation.fulfill()
         })
