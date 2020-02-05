@@ -8,7 +8,7 @@ For more details see the Swift documentation on [Amadeus.com](https://developers
 
 The SDK can be installed via `Swift Package Manager`. Edit the `Package.swift`
 manifest file inside the directory where your project is located and add
-`amadeus` as dependency:
+`amadeus-swift` as dependency:
 
 ```swift
 
@@ -86,9 +86,9 @@ singular path.
 For example, ``GET /v2/shopping/hotel-offers/XZY`` would be:
 
 ```swift
-  amadeus.shopping.hotelOffer(hotelId: "176383FB301E78D430F81A6CB6134EBF801DCC1AE14FC9DCCE84D17C6B519F5B").get(data:[:], 
+  amadeus.shopping.hotelOffer(hotelId: "XZY").get(data:[:], 
             onCompletion: {
-               data,error in 
+               (data,error) in 
                ...
 }
 ```
@@ -110,7 +110,7 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "100
       print(result.body) // => The raw response, as a string
       print(result.data) // => JSON data field extracted from the JSON
       print(result.result) // => The body parsed as JSON, if the result was parsable
-      print(result.responseCode) => HTTP Response code
+      print(result.statusCode) => HTTP Status code
 })
 ```
 
@@ -124,9 +124,9 @@ under the ``.next``, ``.previous``, ``.last`` and ``.first`` methods.
 ```swift
 amadeus.referenceData.locations.airports.get(data:["longitude": "2.55",
                                                    "latitude": "49.0000"], onCompletion: {
-    data,error in
+    (data, error) in
       amadeus.next(data: data!, onCompletion: {
-        data, err in
+        (data, err) in
             ....
 })
 ```
@@ -153,13 +153,17 @@ amadeus = Amadeus(
 ```swift
 
 // Flight Inspiration Search
-amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
+amadeus.shopping.flightDestinations.get(data: ["origin": "BOS", 
+                                               "maxPrice": "10000"], onCompletion: {
 
 // Flight Cheapest Date Search
-amadeus.shopping.flightDates.get(data:["origin": "LHR", "destination": "PAR"], onCompletion: {
+amadeus.shopping.flightDates.get(data:["origin": "LHR",
+                                       "destination": "PAR"], onCompletion: {
 
 // Flight Low-fare Search
-ama.shopping.flightOffers.get(data: ["origin": "MAD", "destination": "LUX", "departureDate": "2018-12-10"], onCompletion: {
+ama.shopping.flightOffers.get(data: ["origin": "MAD",
+                                     "destination": "BER",
+                                     "departureDate": "2020-04-10"], onCompletion: {
 
 // Flight Checkin Links
 amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
@@ -168,39 +172,39 @@ amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompl
 amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
 
 // Airports and City Search
-amadeus.referenceData.locations.get(data:["subType": "AIRPORT,CITY", "keyword": "lon"], onCompletion: {
+amadeus.referenceData.locations.get(data:["subType": "AIRPORT,CITY",
+                                          "keyword": "lon"], onCompletion: {
 
 // Get a specific city or airport based on its id
 amadeus.referenceData.location(locationId: "ALHR").get(data:[:], onCompletion: {
 })
 
 // Airport Nearest Relevant Airport
-amadeus.referenceData.locations.airports.get(data:["longitude": "49.0000", "latitude": "2.55"], onCompletion: {
-
-// Flight Most Searched Destinations
-amadeus.travel.analytics.airTraffic.searched.get(data:["originCityCode":"MAD", "marketCountryCode": "ES", "searchPeriod": "2020-08"],  onCompletion: {
-
-// How many people in Spain searched for a trip from Madrid to New-York in September 2017?
-amadeus.travel.analytics.airTraffic.searchedByDestination.get(data:["originCityCode":"MAD", "destinationCityCode":"NYC", "marketCountryCode": "ES", "searchPeriod": "2017-08"], onCompletion: {
+amadeus.referenceData.locations.airports.get(data:["longitude": "49.0000",
+                                                   "latitude": "2.55"], onCompletion: {
 
 // Flight Most Booked Destinations
-amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
+amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD",
+                                                     "period": "2017-11"], onCompletion: {
 
 // Flight Most Traveled Destinations
-amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
+amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD",
+                                                       "period": "2018-11"], onCompletion: {
 
 // Flight Busiest Traveling Period
-amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD", "period": "2017", "direction": "ARRIVING"], onCompletion: {
+amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD",
+                                                            "period": "2018",
+                                                            "direction": "ARRIVING"], onCompletion: {
 
 // Hotel Search API
+
 // Get list of hotels by city code
 amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD"], onCompletion: {
-})
+
 // Get list of offers for a specific hotel
 amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
-                                                        "roomQuantity": "1",onCompletion: {
+                                             "roomQuantity": "1"], onCompletion: {
 
-amadeus.shopping.hotel('SMPARCOL').hotelOffers.get()
 // Confirm the availability of a specific offer for a specific hotel
 amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: {
 ```
