@@ -30,6 +30,8 @@ Account](https://developers.amadeus.com/create-account) and [set up your first
 application](https://developers.amadeus.com/my-apps).
 
 ```swift
+import amadeus
+
 var amadeus: Amadeus!
 
 amadeus = Amadeus(
@@ -53,8 +55,11 @@ amadeus.referenceData.urls.checkinLinks.get(
 The client can be initialized directly.
 
 ```swift
+import amadeus
+
 // Initialize using parameters
 var amadeus: Amadeus!
+
 amadeus = Amadeus(
     client_id: "REPLACE_BY_YOUR_API_KEY",
     client_secret: "REPLACE_BY_YOUR_API_SECRET"
@@ -65,8 +70,8 @@ Alternatively it can be initialized without any parameters if the environment
 variables `AMADEUS_CLIENT_ID` and `AMADEUS_CLIENT_SECRET` are present.
 
 ```swift
-var amadeus = new Amadeus();
-```
+ var amadeus = Amadeus()
+ ```
 
 Your credentials can be found on the [Amadeus
 dashboard](https://developers.amadeus.com/my-apps). [Sign
