@@ -1,7 +1,4 @@
 import Foundation
-import SwiftyJSON
-
-fileprivate let flightDestinations = "v1/shopping/flight-destinations"
 
 /// A namespaced client for the `v1/shopping/flight-destinations` endpoints
 ///
@@ -17,7 +14,6 @@ public class FlightDestinations{
     public init(client:Client) {
         self.client = client
     }
-    
     
     /// Find the cheapest destinations where you can fly to.
     ///
@@ -37,26 +33,9 @@ public class FlightDestinations{
     /// - Returns:
     ///    `JSON` object
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        client.getAccessToken(onCompletion: {
-            (auth) in
-            if auth != "error" {
-                let path = self.generateURLFlightDestinations(data: data)
-                getRequest(path: path, auth: auth, client: self.client, onCompletion: {
-                    data,err  in
-                    if let error = err {
-                        onCompletion(nil,error)
-                    }else{
-                        onCompletion(data,nil)
-                    }
-                })
-            }else{
-                onCompletion(nil,nil)
-            }
-        })
+        self.client.get(path: "v1/shopping/flight-destinations", params: data, onCompletion: {
+                         (response, error) in 
+                            onCompletion(response, error)
+                    })
     }
-    
-    private func generateURLFlightDestinations(data:[String:String]) -> String{
-        return generateURL(client: self.client, path: flightDestinations, data: data)
-    }
-    
 }

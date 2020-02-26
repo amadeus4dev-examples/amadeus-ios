@@ -24,10 +24,8 @@ public class Shopping {
         hotelOfferByHotel = HotelOfferByHotel(client: client)
         self.client = client
     }
-    
+
     public func hotelOffer(hotelId: String) -> HotelOffer{
         return HotelOffer(client: self.client, hotelId: hotelId)
     }
-    
-    
 }

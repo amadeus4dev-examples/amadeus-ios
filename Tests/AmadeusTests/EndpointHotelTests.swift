@@ -18,7 +18,7 @@ class EndpointHotelTests: XCTestCase {
         super.tearDown()
     }
     
-    
+
     func testHotelOffers(){
         
         let expectation = XCTestExpectation(description: "TimeOut")

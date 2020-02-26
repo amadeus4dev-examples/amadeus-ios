@@ -1,7 +1,4 @@
 import Foundation
-import SwiftyJSON
-
-fileprivate let busiestPeriod = "v1/travel/analytics/air-traffic/busiest-period"
 
 /// A namespaced client for the `v1/travel/analytics/air-traffic/busiest-period` endpoints
 ///
@@ -37,25 +34,9 @@ public class BusiestPeriod{
     /// - Returns:
     ///    `JSON` object
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        client.getAccessToken(onCompletion: {
-            (auth) in
-            if auth != "error" {
-                let path = self.generateURLBusiestPeriod(data: data)
-                getRequest(path: path, auth: auth, client: self.client, onCompletion: {
-                    data,err  in
-                    if let error = err {
-                        onCompletion(nil,error)
-                    }else{
-                        onCompletion(data,nil)
-                    }
-                })
-            }else{
-                onCompletion(nil,nil)
-            }
-        })
-    }
-    
-    private func generateURLBusiestPeriod(data:[String:String]) -> String{
-        return generateURL(client: self.client, path: busiestPeriod, data: data)
+        self.client.get(path: "v1/travel/analytics/air-traffic/busiest-period", params: data, onCompletion: {
+                         (response, error) in 
+                            onCompletion(response, error)
+                    })
     }
 }

@@ -1,84 +1,81 @@
 import Foundation
-import SwiftyJSON
-
-
-/// A memorized Access Token, with the ability to auto-refresh when needed.
 
 public class Client {
-    fileprivate let urlAuth = "v1/security/oauth2/token"
-    private let grant_type: String
-    public var client_id: String
-    public var client_secret:String
     
-    public var configuration:Configuration
-    
-    private var access_token: String
-    private var expires_time: Int
-    
-    
-    public init(client_id: String, client_secret:String, enviroment:[String:Any]) {
-        self.grant_type =  "client_credentials"
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.configuration = Configuration(enviroment: enviroment)
-        self.expires_time = 0
-        self.access_token = ""
-    }
-    
-    ///This method checks if the access_tocken needs to be renewed and, if needed, request the access_token,
-    ///updates the token and save it, if you do not have to renew it returns the access_token that we had stored
-    ///
-    /// - Returns:
-    ///     access_token: `String` the client access token
-    public func getAccessToken(onCompletion: @escaping (String) -> Void){
-        if needRefresh() {
-            getAuthToken(onCompletion: {
-                access_token in
-                
-                onCompletion(access_token)
-            })
-            
-        }else{
-            onCompletion(access_token)
-        }
-    }
-    
+    public let accessToken:AccessToken
+    public let configuration:Configuration
 
-    ///Checks if this access token needs a refresh.
-    private func needRefresh() -> Bool{
-        return (access_token == "" || access_token == "error" || Int(Date().timeIntervalSince1970 * 1000) > expires_time)
+    public init(client_id: String, client_secret:String, environment:[String:Any]) {
+        configuration = Configuration(environment: environment)
+        
+        accessToken = AccessToken(client_id: client_id,
+                                  client_secret: client_secret,
+                                  config: configuration)
     }
 
-    ///Fetches a new Access Token using the credentials from the client.
-    private func getAuthToken(onCompletion: @escaping (String) -> Void){
-        let body = "grant_type=" + grant_type + "&client_id=" + client_id + "&client_secret=" + client_secret
-        makeHTTPPostRequest(urlAuth, body: body, ssl:configuration.ssl, host:configuration.host, onCompletion: { (data, err) in
-            if let error = data["error"].string{
-                onCompletion(error)
+    private func generateGetParameters(data: [String:String]) -> String{
+        var res = ""
+        var firstTime = true
+        for item in data {
+            if firstTime {
+                firstTime = false
+                res += "?\(item.key)=\(item.value)"
             }else{
-                if let auth = data["access_token"].string{
-                    onCompletion(auth)
-                }else{
-                    onCompletion("error")
-                }
+                res += "&\(item.key)=\(item.value)"
             }
-            self.storeData(data: data)
+        }
+        return res
+    }
+
+    public func get(path: String, params: [String:String], onCompletion: @escaping AmadeusResponse){
+        self.request(verb: "GET", path: path, params: generateGetParameters(data:params), onCompletion: {
+            (response, error) in 
+            onCompletion(response, error) 
         })
     }
 
-    ///Store the fetched access token and expiry date.
-    private func storeData(data: JSON){
-        if let access_token = data["access_token"].string{
-            self.access_token = access_token
-        }else{
-            self.access_token = "error"
-        }
-        
-        if let expires_time = data["expires_in"].int{
-            self.expires_time = expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
-        }else{
-            self.expires_time = 0
-        }
+    public func post(path: String, body: String, onCompletion: @escaping AmadeusResponse) {
+        self.request(verb: "POST", path: path, params: body, onCompletion: {
+            (response, error) in 
+            onCompletion(response, error) 
+        })
     }
-    
+
+    private func request(verb: String, path: String, params: String, onCompletion: @escaping AmadeusResponse) {
+        self.accessToken.get(onCompletion: {
+            (auth) in
+            if auth != "error" {
+
+                let url = self.configuration.baseURL + path + params
+
+                let headers = ["Content-Type"  : "application/json",
+                               "Authorization" : "Bearer \(auth)"]
+ 
+                if verb == "GET" {
+                    _get(url:url, headers:headers, onCompletion: {
+                        (data,err)  in
+                            if let error = err {
+                                onCompletion(nil,error)
+                            }else{
+                                onCompletion(data,nil)
+                            }
+                        })
+                }
+
+                if verb == "POST" {
+                    _post(url:url, headers:headers, body: params, onCompletion: {
+                        (data,err)  in
+                            if let error = err {
+                                onCompletion(nil,error)
+                            }else{
+                                onCompletion(data,nil)
+                            }
+                        })
+                }
+
+            }else{
+                onCompletion(nil,nil)
+            }
+        })
+    }
 }

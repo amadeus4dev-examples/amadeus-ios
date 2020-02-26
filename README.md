@@ -86,9 +86,9 @@ For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
 
 ```swift
   amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
-     data,error in 
+     (data,error) in 
      ...
-})
+   })
 ```
 
 Similarly, to select a resource by ID, you can pass in the ID to the
@@ -101,7 +101,16 @@ For example, ``GET /v2/shopping/hotel-offers/XZY`` would be:
             onCompletion: {
                (data,error) in 
                ...
-}
+    })
+```
+You can make any arbitrary API call as well directly with the `.get` method:
+
+```swift
+  amadeus.get(path:'/v2/reference-data/urls/checkin-links',
+              data: ["airlineCode":"BA"], onCompletion: {
+                (data,error) in
+                 ....
+    })
 ```
 
 ## Response
@@ -118,10 +127,10 @@ always available as the ``.body`` attribute.
 amadeus.shopping.flightDestinations.get(data: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
     result,error in
 
-      print(result.body) // => The raw response, as a string
-      print(result.data) // => JSON data field extracted from the JSON
-      print(result.result) // => The body parsed as JSON, if the result was parsable
-      print(result.statusCode) => HTTP Status code
+      print(result.body)       // => The raw response, as a string
+      print(result.data)       // => JSON data field extracted from the JSON
+      print(result.result)     // => The body parsed as JSON, if the result was parsable
+      print(result.statusCode) // => HTTP Status code
 })
 ```
 

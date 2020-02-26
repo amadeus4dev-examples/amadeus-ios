@@ -1,7 +1,4 @@
 import Foundation
-import SwiftyJSON
-
-fileprivate let traveled = "v1/travel/analytics/air-traffic/traveled"
 
 /// A namespaced client for the `v1/travel/analytics/air-traffic/traveled` endpoints
 ///
@@ -36,21 +33,9 @@ public class Traveled{
     /// - Returns:
     ///    `JSON` object
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        client.getAccessToken(onCompletion: {
-            (auth) in
-            if auth != "error" {
-                let path = generateURL(client: self.client, path: traveled, data: data)
-                getRequest(path: path, auth: auth, client: self.client, onCompletion: {
-                    data,err  in
-                    if let error = err {
-                        onCompletion(nil,error)
-                    }else{
-                        onCompletion(data,nil)
-                    }
-                })
-            }else{
-                onCompletion(nil,nil)
-            }
-        })
+        self.client.get(path: "v1/travel/analytics/air-traffic/traveled", params: data, onCompletion: {
+                         (response, error) in 
+                            onCompletion(response, error)
+                    })
     }
 }
