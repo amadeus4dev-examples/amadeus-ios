@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 /// A namespaced client for the `v2/reference-data/locations` endpoints
 ///
@@ -36,22 +35,9 @@ public class Location{
     /// - Returns:
     ///    `JSON` object
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        client.getAccessToken(onCompletion: {
-            (auth) in
-            if auth != "error" {
-                let endpoint = "v1/reference-data/locations/" + self.locationId
-                let path = generateURL(client: self.client, path: endpoint, data: data)
-                getRequest(path: path, auth: auth, client: self.client, onCompletion: {
-                    data,err  in
-                    if let error = err {
-                        onCompletion(nil,error)
-                    }else{
-                        onCompletion(data,nil)
-                    }
-                })
-            }else{
-                onCompletion(nil,nil)
-            }
-        })
+        self.client.get(path: "v1/reference-data/locations/\(self.locationId)", params: data, onCompletion: {
+                         (response, error) in 
+                            onCompletion(response, error)
+                    })
     }
 }

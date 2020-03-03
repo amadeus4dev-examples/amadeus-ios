@@ -34,27 +34,22 @@ public class Response{
                 self.result = json
                 // parsed: wether the raw body has been parsed into JSON
                 self.parsed = true
+                
+                // meta: the meta extracted from the JSON data
+                self.meta = self.result["meta"]
+                
+                // data: the data extracted from the JSON data
+                self.data = self.result["data"]
             } else {
                 self.result = JSON.null
+                self.meta = JSON.null
+                self.data = JSON.null
             }
         } catch _ as NSError{
             self.result = JSON.null
-        }
-        
-        // meta: the meta extracted from the JSON data
-        if let meta = self.result["meta"].array?[0]{
-            self.meta = meta
-        }else{
             self.meta = JSON.null
-        }
-
-        // data: the data extracted from the JSON data
-         if let dataResponse = self.result["data"].array?[0]{
-            self.data = dataResponse
-        }else{
             self.data = JSON.null
         }
-        
     }
     
 }

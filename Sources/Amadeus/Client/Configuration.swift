@@ -3,55 +3,60 @@ import Foundation
 public class Configuration{
     
     public var logLevel = "silent"
-    public var hostname = "test"
     public var host = "test.api.amadeus.com"
     public var ssl = true
     public var port = 443
-    public var customAppId = ""
-    public var customAppVersion = ""
+    public var customAppId = "amadeus-swift-sdk"
+    public var customAppVersion = "1.0.0"
+    public var baseURL = ""
     
-    public init(enviroment:[String:Any]){
-        setHostname(enviroment: enviroment)
-        setHost(enviroment: enviroment)
-        setLogLevel(enviroment: enviroment)
-        setSsl(enviroment: enviroment)
-        setPort(enviroment: enviroment)
-        setCustomAppId(enviroment: enviroment)
-        setCustomAppVersion(enviroment: enviroment)
+    public init(environment:[String:Any]){
+        setHost(environment: environment)
+        setLogLevel(environment: environment)
+        setSsl(environment: environment)
+        setPort(environment: environment)
+        setCustomAppId(environment: environment)
+        setCustomAppVersion(environment: environment)
+        setBaseURL()
     }
     
-    private func setHostname(enviroment:[String:Any]){
-        if let hostname = enviroment["hostName",default: hostname] as? String{
-            self.hostname = hostname
+    private func setBaseURL() {
+        var prot = "http://"
+        
+        if self.ssl {
+            prot = "https://"
         }
+        
+        self.baseURL = prot + self.host + "/"
     }
-    private func setHost(enviroment:[String:Any]){
-        if let host = enviroment["host",default: host] as? String{
+    
+    private func setHost(environment:[String:Any]){
+        if let host = environment["host",default: host] as? String{
             self.host = host
         }
     }
-    private func setLogLevel(enviroment:[String:Any]){
-        if let logLevel = enviroment["logLevel",default: logLevel] as? String{
+    private func setLogLevel(environment:[String:Any]){
+        if let logLevel = environment["logLevel",default: logLevel] as? String{
             self.logLevel = logLevel
         }
     }
-    private func setSsl(enviroment:[String:Any]){
-        if let ssl = enviroment["ssl",default: ssl] as? Bool{
+    private func setSsl(environment:[String:Any]){
+        if let ssl = environment["ssl",default: ssl] as? Bool{
             self.ssl = ssl
         }
     }
-    private func setPort(enviroment:[String:Any]){
-        if let port = enviroment["port",default: port] as? Int{
+    private func setPort(environment:[String:Any]){
+        if let port = environment["port",default: port] as? Int{
             self.port = port
         }
     }
-    private func setCustomAppId(enviroment:[String:Any]){
-        if let customAppId = enviroment["customAppId",default: customAppId] as? String{
+    private func setCustomAppId(environment:[String:Any]){
+        if let customAppId = environment["customAppId",default: customAppId] as? String{
             self.customAppId = customAppId
         }
     }
-    private func setCustomAppVersion(enviroment:[String:Any]){
-        if let customAppVersion = enviroment["customAppVersion",default: customAppVersion] as? String{
+    private func setCustomAppVersion(environment:[String:Any]){
+        if let customAppVersion = environment["customAppVersion",default: customAppVersion] as? String{
             self.customAppVersion = customAppVersion
         }
     }

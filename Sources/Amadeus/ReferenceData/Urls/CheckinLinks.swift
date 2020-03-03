@@ -1,7 +1,4 @@
 import Foundation
-import SwiftyJSON
-
-fileprivate let checkinLinks = "v2/reference-data/urls/checkin-links"
 
 /// A namespaced client for the `v2/reference-data/urls/checkin-links` endpoints
 ///
@@ -34,25 +31,9 @@ public class CheckinLinks{
     /// - Returns:
     ///    `JSON` object
     public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        client.getAccessToken(onCompletion: {
-            (auth) in
-            if auth != "error" {
-                let path = self.generateURLCheckinLinks(data: data)
-                getRequest(path: path, auth: auth, client: self.client, onCompletion: {
-                    data,err  in
-                    if let error = err {
-                        onCompletion(nil,error)
-                    }else{
-                        onCompletion(data,nil)
-                    }
-                })
-            }else{
-                onCompletion(nil,nil)
-            }
-        })
-    }
-    
-    private func generateURLCheckinLinks(data:[String:String]) -> String{
-        return generateURL(client: self.client, path: checkinLinks, data: data)
+        self.client.get(path: "v2/reference-data/urls/checkin-links", params: data, onCompletion: {
+                         (response, error) in 
+                            onCompletion(response, error)
+                    })
     }
 }

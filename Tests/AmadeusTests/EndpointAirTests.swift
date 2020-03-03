@@ -3,7 +3,7 @@ import XCTest
 
 class EndpointAirTests: XCTestCase {
     
-    var client : Amadeus!
+    var amadeus: Amadeus!
 
     override func setUp() {
         super.setUp()
@@ -11,21 +11,52 @@ class EndpointAirTests: XCTestCase {
         // Avoid 429 error "Network rate limit is exceeded
         sleep(1)
         
-        self.client = Amadeus()
+        self.amadeus = Amadeus()
     }
 
     override func tearDown() {
-        self.client = nil
+        self.amadeus = nil
         super.tearDown()
     }
-    
+
+    func testFlightOffersSearch() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        self.amadeus.client.get(path: "v1/shopping/flight-destinations",
+                               params: ["origin":"MAD",
+                                        "maxPrice":"200"], onCompletion: {
+            (data, error) in
+              XCTAssertEqual(data?.statusCode, 200)
+              XCTAssertNotNil(data)
+              expectation.fulfill()
+        })
+       
+        wait(for: [expectation], timeout: 60)
+ 
+    }
+
+    func testFlightDestinations(){
+        
+        let expectation = XCTestExpectation(description: "TimeOut")
+       
+        self.amadeus.shopping.flightDestinations.get(data: ["origin": "MAD",
+                                                            "maxPrice": "500"], onCompletion: {
+            (data, error) in
+              XCTAssertEqual(data?.statusCode, 200)
+              XCTAssertNotNil(data)
+              expectation.fulfill()
+        })
+       
+        wait(for: [expectation], timeout: 60)
+    }
+   
     func testFlightOffers(){
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.shopping.flightOffers.get(data: ["origin": "MAD",
-                                                     "destination": "BER",
-                                                     "departureDate": "2020-05-16"], onCompletion: {
+        self.amadeus.shopping.flightOffers.get(data: ["origin": "MAD",
+                                                      "destination": "BER",
+                                                      "departureDate": "2020-05-16"], onCompletion: {
             (data,error) in
               XCTAssertEqual(data?.statusCode, 200)
               XCTAssertNotNil(data)
@@ -35,29 +66,13 @@ class EndpointAirTests: XCTestCase {
         wait(for: [expectation], timeout: 60)
         
     }
-    
-    func testFlightDestinations(){
-        
-        let expectation = XCTestExpectation(description: "TimeOut")
-        
-        self.client.shopping.flightDestinations.get(data: ["origin": "MAD",
-                                                           "maxPrice": "500"], onCompletion: {
-            data, error in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
-            expectation.fulfill()
-        })
-        
-        wait(for: [expectation], timeout: 60)
-        
-    }
-    
+ 
     func testFlightDates(){
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.shopping.flightDates.get(data:["origin": "MAD",
-                                                   "destination": "BOS"], onCompletion: {
+        self.amadeus.shopping.flightDates.get(data:["origin": "MAD",
+                                                    "destination": "BOS"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -72,7 +87,8 @@ class EndpointAirTests: XCTestCase {
        
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
+        self.amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD",
+                                                                    "period": "2017-11"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -87,7 +103,8 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD", "period": "2017-11"], onCompletion: {
+        self.amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD",
+                                                                  "period": "2017-11"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -102,7 +119,9 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD", "period": "2017", "direction": "ARRIVING"], onCompletion: {
+        self.amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD",
+                                                                         "period": "2017",
+                                                                         "direction": "ARRIVING"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -118,7 +137,7 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.referenceData.urls.checkinLinks.get(data:["airlineCode": "BA"], onCompletion: {
+        self.amadeus.referenceData.urls.checkinLinks.get(data:["airlineCode": "BA"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -133,11 +152,11 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.referenceData.locations.airports.get(data:["longitude": "2.55",
-                                                               "latitude": "49.0000"], onCompletion: {
+        self.amadeus.referenceData.locations.airports.get(data:["longitude": "2.55",
+                                                                "latitude": "49.0000"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
-            self.client.next(data: data!, onCompletion: {data, err in
+            self.amadeus.next(data: data!, onCompletion: {data, err in
                 XCTAssertNotNil(data as Any)
                 expectation.fulfill()
             })
@@ -150,7 +169,8 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.referenceData.locations.get(data:["subType": "AIRPORT,CITY", "keyword": "lon"], onCompletion: {
+        self.amadeus.referenceData.locations.get(data:["subType": "AIRPORT,CITY",
+                                                       "keyword": "lon"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -165,7 +185,7 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.referenceData.location(locationId: "CMUC").get(data:[:], onCompletion: {
+        self.amadeus.referenceData.location(locationId: "CMUC").get(data:[:], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -180,7 +200,7 @@ class EndpointAirTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "TimeOut")
         
-        self.client.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
+        self.amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
             data,error in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -190,5 +210,4 @@ class EndpointAirTests: XCTestCase {
         wait(for: [expectation], timeout: 60)
         
     }
-
 }
