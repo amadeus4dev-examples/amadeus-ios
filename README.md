@@ -172,6 +172,15 @@ amadeus = Amadeus(
 
 ```swift
 
+// Fligh Offers Search
+amadeus.shopping.flightOffersSearch.get(data: ["originLocationCode": "MAD",
+                                               "destinationLocationCode": "BER",
+                                               "departureDate": "2020-05-16",
+                                               "returnDate": "2020-05-30",
+                                               "adults": "2"], onCompletion: {
+
+amadeus.shopping.flightOffersSearch.post(body: jsonBody, onCompletion: {
+
 // Flight Inspiration Search
 amadeus.shopping.flightDestinations.get(data: ["origin": "BOS", 
                                                "maxPrice": "10000"], onCompletion: {
@@ -179,11 +188,6 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "BOS",
 // Flight Cheapest Date Search
 amadeus.shopping.flightDates.get(data:["origin": "LHR",
                                        "destination": "PAR"], onCompletion: {
-
-// Flight Low-fare Search
-ama.shopping.flightOffers.get(data: ["origin": "MAD",
-                                     "destination": "BER",
-                                     "departureDate": "2020-04-10"], onCompletion: {
 
 // Flight Checkin Links
 amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {

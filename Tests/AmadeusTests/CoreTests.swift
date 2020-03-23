@@ -1,7 +1,7 @@
 import XCTest
 @testable import Amadeus
 
-class AmadeusTests: XCTestCase {
+class CoreTests: XCTestCase {
     
     var client : Amadeus!
     
@@ -9,12 +9,6 @@ class AmadeusTests: XCTestCase {
         super.setUp()
         self.client = Amadeus()
     }
-    
-    /*
-    func testGenerateURL() {
-        XCTAssertEqual( generateURL(client: self.client.client, path: "path", data: ["foo":"bar"]), "https://test.api.amadeus.com/path?foo=bar", "")
-    }
-    */
     
     func testConfiguration() {
         let conf = Configuration(environment: [:])
