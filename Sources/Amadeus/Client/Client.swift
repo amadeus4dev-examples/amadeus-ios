@@ -1,4 +1,9 @@
 import Foundation
+import SwiftyJSON
+
+enum ClientError: Error {
+    case AuthenticationError
+}
 
 public class Client {
     
@@ -28,29 +33,46 @@ public class Client {
     }
 
     public func get(path: String, params: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.request(verb: "GET", path: path, params: generateGetParameters(data:params), onCompletion: {
+        self.request(verb: "GET", path: path, params: generateGetParameters(data:params), body: "", onCompletion: {
             (response, error) in 
             onCompletion(response, error) 
         })
     }
 
-    public func post(path: String, body: String, onCompletion: @escaping AmadeusResponse) {
-        self.request(verb: "POST", path: path, params: body, onCompletion: {
-            (response, error) in 
-            onCompletion(response, error) 
-        })
+    public func post(path: String, body: JSON, onCompletion: @escaping AmadeusResponse){
+        if let bodyString = body.rawString() {
+            self.request(verb: "POST", path: path, params: "", body: bodyString, onCompletion: {
+                             (response, error) in 
+                             onCompletion(response, error) 
+                         })
+        } else {
+            onCompletion(nil, nil) 
+        }
+   }
+
+    private func prettyPrintRequest(verb: String, url:String, headers: [String:String]) {
+        print("\n")
+        print("\(verb) \(url)")
+        for header in headers {
+            print("\(header.key): \(header.value)")
+        }
+        print("\n")
     }
 
-    private func request(verb: String, path: String, params: String, onCompletion: @escaping AmadeusResponse) {
-        self.accessToken.get(onCompletion: {
-            (auth) in
+    private func request(verb: String, path: String, params: String, body: String, onCompletion: @escaping AmadeusResponse){
+        self.accessToken.get(onCompletion: { auth in
             if auth != "error" {
 
                 let url = self.configuration.baseURL + path + params
 
                 let headers = ["Content-Type"  : "application/json",
-                               "Authorization" : "Bearer \(auth)"]
- 
+                               "Authorization" : "Bearer \(auth)",
+                               "User-Agent"    : "\(self.configuration.customAppId)/\(self.configuration.customAppVersion)"]
+
+                if self.configuration.logLevel == "debug" {
+                    self.prettyPrintRequest(verb:verb, url:url, headers:headers)
+                }
+
                 if verb == "GET" {
                     _get(url:url, headers:headers, onCompletion: {
                         (data,err)  in
@@ -63,7 +85,7 @@ public class Client {
                 }
 
                 if verb == "POST" {
-                    _post(url:url, headers:headers, body: params, onCompletion: {
+                    _post(url:url, headers:headers, body: body, onCompletion: {
                         (data,err)  in
                             if let error = err {
                                 onCompletion(nil,error)
@@ -72,7 +94,6 @@ public class Client {
                             }
                         })
                 }
-
             }else{
                 onCompletion(nil,nil)
             }

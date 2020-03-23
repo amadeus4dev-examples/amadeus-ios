@@ -9,7 +9,7 @@ import Foundation
 /// ```
 public class Shopping {
     
-    public let flightOffers:FlightOffers
+    public let flightOffersSearch:FlightOffersSearch
     public let flightDestinations:FlightDestinations
     public let flightDates:FlightDates
     public let hotelOffers:HotelOffers
@@ -17,7 +17,7 @@ public class Shopping {
     private let client: Client
     
     public init(client: Client) {
-        flightOffers = FlightOffers(client: client)
+        flightOffersSearch = FlightOffersSearch(client: client)
         flightDestinations = FlightDestinations(client: client)
         flightDates = FlightDates(client: client)
         hotelOffers = HotelOffers(client: client)

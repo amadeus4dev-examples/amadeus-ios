@@ -2,7 +2,6 @@ import Foundation
 import SwiftyJSON
 
 /// A memorized Access Token, with the ability to auto-refresh when needed.
-
 public class AccessToken {
     
     fileprivate let path = "v1/security/oauth2/token"
@@ -32,7 +31,7 @@ public class AccessToken {
     ///
     /// - Returns:
     ///     access_token: `String` the client access token
-    public func get(onCompletion: @escaping (String) -> Void){
+    public func get(onCompletion: @escaping (String) -> Void) {
         if needRefresh() {
             fetchAuthToken(onCompletion: {
                 access_token in
@@ -49,40 +48,24 @@ public class AccessToken {
     }
 
     ///Fetches a new Access Token using the credentials from the client.
-    private func fetchAuthToken(onCompletion: @escaping (String) -> Void){
+    private func fetchAuthToken(onCompletion: @escaping (String) -> Void) {
         
         let body = "grant_type=" + grant_type + "&client_id=" + client_id + "&client_secret=" + client_secret
         let headers = ["Content-Type" : "application/x-www-form-urlencoded"]
 
         let url = self.config.baseURL + path
 
-        _post(url:url, headers:headers, body:body, onCompletion: {
-            (response, err) in
+        _post(url:url, headers:headers, body:body, onCompletion: { response, err in
             
-            if let error = response?.result["error"].string{
-                onCompletion(error)
-            }else{
-                if let auth = response?.result["access_token"].string{
-                    onCompletion(auth)
-                }else{
-                    onCompletion("error")
-                }
+            if let auth = response?.result["access_token"].string {
+                self.access_token = auth
+                self.expires_time = self.expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
+                onCompletion(auth)
+            } else {
+                self.access_token = "error"
+                self.expires_time = 0
+                onCompletion("error")
             }
-            self.storeData(data: response?.result ?? JSON())
         })
-    }
-
-    private func storeData(data: JSON){
-        if let access_token = data["access_token"].string{
-            self.access_token = access_token
-        }else{
-            self.access_token = "error"
-        }
-        
-        if let expires_time = data["expires_in"].int{
-            self.expires_time = expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
-        }else{
-            self.expires_time = 0
-        }
     }
 }
