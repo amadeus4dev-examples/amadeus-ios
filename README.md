@@ -1,6 +1,6 @@
-# Amadeus Swift SDK
+# Amadeus iOS SDK
 
-[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-swift.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-swift) ![Platform](https://img.shields.io/badge/platforms-macOS%2010.10%20%7C%20-F28D00.svg) 
+[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-ios.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-ios) ![Platform](https://img.shields.io/badge/platforms-macOS%2010.10%20%7C%20-F28D00.svg) 
 
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
@@ -9,7 +9,7 @@ For more details see the Swift documentation on [Amadeus.com](https://developers
 ## Installation
 
 The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift`
-manifest file inside the directory where your project is located and add `amadeus-swift` as dependency:
+manifest file inside the directory where your project is located and add `amadeus-ios` as dependency:
 
 ```swift
     import PackageDescription
@@ -17,7 +17,7 @@ manifest file inside the directory where your project is located and add `amadeu
     let package = Package(
         name: "YOUR_PROJECT_NAME",
         dependencies: [
-            .package(url: "https://github.com/amadeus4dev/amadeus-swift.git", from: "1.0.0"),
+            .package(url: "https://github.com/amadeus4dev/amadeus-ios.git", from: "1.0.0"),
         ]
     )
 ```
@@ -249,5 +249,5 @@ help you. You can find us on
 [StackOverflow](https://stackoverflow.com/questions/tagged/amadeus) and
 [email](mailto:developers@amadeus.com).
 
-[travis]: http://travis-ci.org/amadeus4dev/amadeus-swift
+[travis]: http://travis-ci.org/amadeus4dev/amadeus-ios
 [support]: http://developers.amadeus.com/support
