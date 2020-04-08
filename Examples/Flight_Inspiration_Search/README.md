@@ -1,3 +1,0 @@
-# Flight Inspiration Search Example
-
-
