@@ -4,7 +4,10 @@
 
 Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
 
-For more details see the Swift documentation on [Amadeus.com](https://developers.amadeus.com).
+## Prerequisites
+
+- Swift 5.0 or higher
+- Xcode 11.0+
 
 ## Installation
 
@@ -78,6 +81,13 @@ dashboard](https://developers.amadeus.com/my-apps). [Sign
 up](https://developers.amadeus.com/create-account) for an account today.
 
 
+By default the environment for the SDK is the ``test`` environment. To switch
+to a production (paid-for) environment please switch the hostname as follows:
+
+```swift
+ var amadeus = Amadeus(environment: ["hostname": "production"])
+```
+
 ## Making API calls
 
 This library conveniently maps every API path to a similar path.
@@ -113,10 +123,17 @@ You can make any arbitrary API call as well directly with the `.get` method:
     })
 ```
 
+Or with ``POST`` using the ``.post`` method:
+
 ## Response
 
-Every API call returns a `OnCompletion` that either resolves or rejects. Every
-resolved API call returns a `JSON` object.
+Responses are based on `swift closures`.
+[Closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html) are
+self-contained blocks of functionality that can be passed around and used in
+your code.
+
+Every API call returns a `OnCompletion` closure that either resolves or
+rejects. Every resolved API call returns a `JSON` object.
 
 If the API call contained a JSON response it will parse the JSON into the
 ``.result`` attribute.  If this data also contains a ``data`` key, it will make
