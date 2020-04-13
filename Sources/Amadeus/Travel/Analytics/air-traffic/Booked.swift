@@ -7,14 +7,13 @@ import Foundation
 /// let amadeus = Amadeus(client_id, client_secret)
 /// amadeus.travel.analytics.airTraffic.booked
 /// ```
-public class Booked{
-    
+public class Booked {
     private var client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
-    
+
     /// Returns a list of air traffic reports based on the number of bookings.
     ///
     ///   ## Example
@@ -32,10 +31,10 @@ public class Booked{
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v1/travel/analytics/air-traffic/booked", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/travel/analytics/air-traffic/booked", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }

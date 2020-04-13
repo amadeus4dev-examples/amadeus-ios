@@ -1,6 +1,6 @@
 @testable import Amadeus
-import XCTest
 import SwiftyJSON
+import XCTest
 
 class EndpointAirTests: XCTestCase {
     var amadeus: Amadeus!
@@ -54,88 +54,88 @@ class EndpointAirTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         let jsonString: String = """
-            {
-                "currencyCode": "USD",
-                "originDestinations": [
-                    {
-                        "id": "1",
-                        "originLocationCode": "RIO",
-                        "destinationLocationCode": "MAD",
-                        "departureDateTimeRange": {
-                            "date": "2020-08-01",
-                            "time": "10:00:00"
-                        }
-                    },
-                    {
-                        "id": "2",
-                        "originLocationCode": "MAD",
-                        "destinationLocationCode": "RIO",
-                        "departureDateTimeRange": {
-                            "date": "2020-08-05",
-                            "time": "17:00:00"
-                        }
+        {
+            "currencyCode": "USD",
+            "originDestinations": [
+                {
+                    "id": "1",
+                    "originLocationCode": "RIO",
+                    "destinationLocationCode": "MAD",
+                    "departureDateTimeRange": {
+                        "date": "2020-08-01",
+                        "time": "10:00:00"
                     }
-                ],
-                "travelers": [
-                    {
-                        "id": "1",
-                        "travelerType": "ADULT",
-                        "fareOptions": [
-                            "STANDARD"
-                        ]
-                    },
-                    {
-                        "id": "2",
-                        "travelerType": "CHILD",
-                        "fareOptions": [
-                            "STANDARD"
-                        ]
-                    }
-                ],
-                "sources": [
-                    "GDS"
-                ],
-                "searchCriteria": {
-                    "maxFlightOffers": 2,
-                    "flightFilters": {
-                        "cabinRestrictions": [
-                            {
-                                "cabin": "BUSINESS",
-                                "coverage": "MOST_SEGMENTS",
-                                "originDestinationIds": [
-                                    "1"
-                                ]
-                            }
-                        ],
-                        "carrierRestrictions": {
-                            "excludedCarrierCodes": [
-                                "AA",
-                                "TP",
-                                "AZ"
-                            ]
-                        }
+                },
+                {
+                    "id": "2",
+                    "originLocationCode": "MAD",
+                    "destinationLocationCode": "RIO",
+                    "departureDateTimeRange": {
+                        "date": "2020-08-05",
+                        "time": "17:00:00"
                     }
                 }
-            }  
-            """
+            ],
+            "travelers": [
+                {
+                    "id": "1",
+                    "travelerType": "ADULT",
+                    "fareOptions": [
+                        "STANDARD"
+                    ]
+                },
+                {
+                    "id": "2",
+                    "travelerType": "CHILD",
+                    "fareOptions": [
+                        "STANDARD"
+                    ]
+                }
+            ],
+            "sources": [
+                "GDS"
+            ],
+            "searchCriteria": {
+                "maxFlightOffers": 2,
+                "flightFilters": {
+                    "cabinRestrictions": [
+                        {
+                            "cabin": "BUSINESS",
+                            "coverage": "MOST_SEGMENTS",
+                            "originDestinationIds": [
+                                "1"
+                            ]
+                        }
+                    ],
+                    "carrierRestrictions": {
+                        "excludedCarrierCodes": [
+                            "AA",
+                            "TP",
+                            "AZ"
+                        ]
+                    }
+                }
+            }
+        }  
+        """
 
-            let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
-            do {
-                let body: JSON = try JSON(data: dataFromString!)
+        let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
+        do {
+            let body: JSON = try JSON(data: dataFromString!)
 
-                amadeus.shopping.flightOffersSearch.post(body: body, onCompletion: {
-                                                             data, _ in
-                                                             print(data?.body ?? "")
-                                                             XCTAssertEqual(data?.statusCode, 200)
-                                                             XCTAssertNotNil(data)
-                                                             expectation.fulfill()
+            amadeus.shopping.flightOffersSearch.post(body: body, onCompletion: {
+                data, _ in
+                print(data?.body ?? "")
+                XCTAssertEqual(data?.statusCode, 200)
+                XCTAssertNotNil(data)
+                expectation.fulfill()
                                                          })
 
-                wait(for: [expectation], timeout: 60)
+            wait(for: [expectation], timeout: 60)
 
-            } catch _ as NSError {
-                assertionFailure("JSON not valid")
-            }
+        } catch _ as NSError {
+            assertionFailure("JSON not valid")
+        }
     }
 
     func testFlightDates() {

@@ -7,18 +7,17 @@ import Foundation
 /// let amadeus = Amadeus(client_id, secret_id)
 /// amadeus.shopping.hotelOffers
 /// ```
-public class HotelOfferByHotel{
-    
+public class HotelOfferByHotel {
     private var client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
-    
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v2/shopping/hotel-offers/by-hotel", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/shopping/hotel-offers/by-hotel", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }

@@ -7,14 +7,13 @@ import Foundation
 /// let amadeus = Amadeus(client_id, secret_id)
 /// amadeus.shopping.flightDestinations
 /// ```
-public class FlightDestinations{
-    
+public class FlightDestinations {
     private var client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
-    
+
     /// Find the cheapest destinations where you can fly to.
     ///
     ///   ## Example
@@ -32,10 +31,10 @@ public class FlightDestinations{
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v1/shopping/flight-destinations", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/shopping/flight-destinations", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }
