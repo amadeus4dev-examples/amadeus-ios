@@ -1,6 +1,17 @@
 import Foundation
 import SwiftyJSON
 
+public enum ResponseError: Error {
+    case badRequestError(String) // 400 - the client did not provide the right parameters
+    case authenticationError // 401 - the client did not provide the right credentials
+    case forbiddenError // 403 - access an invalid enpoint
+    case notFoundError // 404 - the path could not be found
+    case tooManyRequestsError // 429 - too many requests
+    case internalServerError // 500 - there is an error on the server
+    case unknownStatusCode(Int) // unknown http code
+    case returnedError(Error) // non http error
+}
+
 public class Response {
     public var body: String
     public var result: JSON
@@ -9,6 +20,27 @@ public class Response {
     public var data: JSON
     public var statusCode: Int
     public var parsed: Bool
+
+    public func getErrorCode() -> ResponseError? {
+        switch statusCode {
+        case 200 ... 208:
+            return nil
+        case 400:
+            return ResponseError.badRequestError(result["errors"][0]["detail"].string!)
+        case 401:
+            return ResponseError.authenticationError
+        case 403:
+            return ResponseError.forbiddenError
+        case 404:
+            return ResponseError.notFoundError
+        case 429:
+            return ResponseError.tooManyRequestsError
+        case 500:
+            return ResponseError.internalServerError
+        default:
+            return ResponseError.unknownStatusCode(statusCode)
+        }
+    }
 
     public init(response: HTTPURLResponse, data: Data?) {
         // statusCode: The HTTP status code for the response, if any

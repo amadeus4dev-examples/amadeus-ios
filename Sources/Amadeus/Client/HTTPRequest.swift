@@ -1,7 +1,6 @@
 import Foundation
-import SwiftyJSON
 
-public typealias AmadeusResponse = (Response?, Error?) -> Void
+public typealias AmadeusResponse = (Response?, ResponseError?) -> Void
 
 public func _get(url: String,
                  headers: [String: String],
@@ -41,18 +40,19 @@ private func send(request: NSMutableURLRequest,
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
 
-        let amadeusResponse: Response?
-        let amadeusError: Error?
+        var amadeusResponse: Response?
+        var amadeusError: ResponseError?
 
         if let httpResponse = response as? HTTPURLResponse {
+            // got a valid HTTP answer
             amadeusResponse = Response(response: httpResponse, data: data!)
-            amadeusError = nil
-
+            // Error could be either nil (200 OK) or enum value
+            amadeusError = amadeusResponse!.getErrorCode()
         } else {
+            // no HTTP answer: network problem
             amadeusResponse = nil
-            amadeusError = error
+            amadeusError = ResponseError.returnedError(error!)
         }
-
         onCompletion(amadeusResponse, amadeusError)
     })
     task.resume()

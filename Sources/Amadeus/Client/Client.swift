@@ -59,12 +59,14 @@ public class Client {
     }
 
     private func request(verb: String, path: String, params: String, body: String, onCompletion: @escaping AmadeusResponse) {
-        accessToken.get(onCompletion: { auth in
-            if auth != "error" {
+        accessToken.get(onCompletion: { auth, error in
+            let err: ResponseError? = error
+
+            if err == nil {
                 let url = self.configuration.baseURL + path + params
 
                 let headers = ["Content-Type": "application/json",
-                               "Authorization": "Bearer \(auth)",
+                               "Authorization": "Bearer \(auth!)",
                                "User-Agent": "\(self.configuration.customAppId)/\(self.configuration.customAppVersion)"]
 
                 if self.configuration.logLevel == "debug" {
@@ -74,26 +76,18 @@ public class Client {
                 if verb == "GET" {
                     _get(url: url, headers: headers, onCompletion: {
                         data, err in
-                        if let error = err {
-                            onCompletion(nil, error)
-                        } else {
-                            onCompletion(data, nil)
-                        }
+                        onCompletion(data, err)
                         })
                 }
 
                 if verb == "POST" {
                     _post(url: url, headers: headers, body: body, onCompletion: {
                         data, err in
-                        if let error = err {
-                            onCompletion(nil, error)
-                        } else {
-                            onCompletion(data, nil)
-                        }
+                        onCompletion(data, err)
                         })
                 }
             } else {
-                onCompletion(nil, nil)
+                onCompletion(nil, error)
             }
         })
     }

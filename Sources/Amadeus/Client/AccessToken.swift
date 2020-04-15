@@ -30,14 +30,14 @@ public class AccessToken {
     ///
     /// - Returns:
     ///     access_token: `String` the client access token
-    public func get(onCompletion: @escaping (String) -> Void) {
+    public func get(onCompletion: @escaping (String?, ResponseError?) -> Void) {
         if needRefresh() {
             fetchAuthToken(onCompletion: {
-                access_token in
-                onCompletion(access_token)
+                access_token, error in
+                onCompletion(access_token, error)
             })
         } else {
-            onCompletion(access_token)
+            onCompletion(access_token, nil)
         }
     }
 
@@ -47,22 +47,22 @@ public class AccessToken {
     }
 
     /// Fetches a new Access Token using the credentials from the client.
-    private func fetchAuthToken(onCompletion: @escaping (String) -> Void) {
+    private func fetchAuthToken(onCompletion: @escaping (String?, ResponseError?) -> Void) {
         let body = "grant_type=" + grant_type + "&client_id=" + client_id + "&client_secret=" + client_secret
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
 
         let url = config.baseURL + path
 
-        _post(url: url, headers: headers, body: body, onCompletion: { response, _ in
+        _post(url: url, headers: headers, body: body, onCompletion: { response, error in
 
             if let auth = response?.result["access_token"].string {
                 self.access_token = auth
                 self.expires_time = self.expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
-                onCompletion(auth)
+                onCompletion(auth, nil)
             } else {
                 self.access_token = "error"
                 self.expires_time = 0
-                onCompletion("error")
+                onCompletion(nil, error)
             }
         })
     }
