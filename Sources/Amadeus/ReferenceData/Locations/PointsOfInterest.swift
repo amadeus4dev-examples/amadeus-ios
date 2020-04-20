@@ -8,13 +8,12 @@ import Foundation
 /// amadeus.referenceData.locations.pointsOfInterest
 /// ```
 public class PointsOfInterest {
-    
     private let client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
-    
+
     /// Returns a list of relevant point of interests near to a given point.
     ///
     ///   ## Example
@@ -32,10 +31,10 @@ public class PointsOfInterest {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v1/reference-data/locations/pois", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/reference-data/locations/pois", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }

@@ -9,7 +9,8 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "Amadeus",
-            targets: ["Amadeus"]),
+            targets: ["Amadeus"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "4.0.0"),
@@ -19,9 +20,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Amadeus",
-            dependencies: ["SwiftyJSON"]),
+            dependencies: ["SwiftyJSON"]
+        ),
         .testTarget(
             name: "AmadeusTests",
-            dependencies: ["Amadeus"]),
+            dependencies: ["Amadeus"]
+        ),
     ]
 )

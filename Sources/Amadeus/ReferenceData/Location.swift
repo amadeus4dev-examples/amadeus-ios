@@ -7,16 +7,15 @@ import Foundation
 /// let amadeus = Amadeus(client_id, secret_id)
 /// amadeus.referenceData.locations
 /// ```
-public class Location{
-    
+public class Location {
     private let client: Client
     private let locationId: String
-    
-    public init(client:Client, locationId:String) {
+
+    public init(client: Client, locationId: String) {
         self.client = client
         self.locationId = locationId
     }
-    
+
     /// Returns a list of airports and cities matching a given keyword.
     ///
     ///   ## Example
@@ -34,10 +33,10 @@ public class Location{
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v1/reference-data/locations/\(self.locationId)", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/reference-data/locations/\(locationId)", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }

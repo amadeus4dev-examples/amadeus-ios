@@ -1,11 +1,10 @@
 import Foundation
 import SwiftyJSON
 
-public class FlightOffersSearch{
-    
+public class FlightOffersSearch {
     private var client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
 
@@ -35,17 +34,16 @@ public class FlightOffersSearch{
     ///            format
     ///
     ///     adults: `String` the number of adult passengers with age 12 or older
-    /// 
+    ///
     /// - Returns:
     ///    `JSON` object
     ///
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse) {
-        self.client.get(path: "v2/shopping/flight-offers", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/shopping/flight-offers", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
-
 
     /// Get the cheapest flights on a given journey.
     ///
@@ -59,9 +57,9 @@ public class FlightOffersSearch{
     ///  - Returns:
     ///    `JSON` object
     public func post(body: JSON, onCompletion: @escaping AmadeusResponse) {
-        self.client.post(path: "/v2/shopping/flight-offers", body: body, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+        client.post(path: "/v2/shopping/flight-offers", body: body, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }

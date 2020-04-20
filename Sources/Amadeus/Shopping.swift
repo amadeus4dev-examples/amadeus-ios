@@ -8,14 +8,13 @@ import Foundation
 /// amadeus.shopping
 /// ```
 public class Shopping {
-    
-    public let flightOffersSearch:FlightOffersSearch
-    public let flightDestinations:FlightDestinations
-    public let flightDates:FlightDates
-    public let hotelOffers:HotelOffers
+    public let flightOffersSearch: FlightOffersSearch
+    public let flightDestinations: FlightDestinations
+    public let flightDates: FlightDates
+    public let hotelOffers: HotelOffers
     public let hotelOfferByHotel: HotelOfferByHotel
     private let client: Client
-    
+
     public init(client: Client) {
         flightOffersSearch = FlightOffersSearch(client: client)
         flightDestinations = FlightDestinations(client: client)
@@ -25,7 +24,7 @@ public class Shopping {
         self.client = client
     }
 
-    public func hotelOffer(hotelId: String) -> HotelOffer{
-        return HotelOffer(client: self.client, hotelId: hotelId)
+    public func hotelOffer(hotelId: String) -> HotelOffer {
+        return HotelOffer(client: client, hotelId: hotelId)
     }
 }

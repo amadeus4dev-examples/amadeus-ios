@@ -7,14 +7,13 @@ import Foundation
 /// let amadeus = Amadeus(client_id, secret_id)
 /// amadeus.referenceData.urls.checkinLinks
 /// ```
-public class CheckinLinks{
-    
+public class CheckinLinks {
     private var client: Client
-    
-    public init(client:Client) {
+
+    public init(client: Client) {
         self.client = client
     }
-    
+
     /// Returns the checkin links for an airline.
     ///
     ///   ## Example
@@ -30,10 +29,10 @@ public class CheckinLinks{
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String:String], onCompletion: @escaping AmadeusResponse){
-        self.client.get(path: "v2/reference-data/urls/checkin-links", params: data, onCompletion: {
-                         (response, error) in 
-                            onCompletion(response, error)
+    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/reference-data/urls/checkin-links", params: data, onCompletion: {
+            response, error in
+            onCompletion(response, error)
                     })
     }
 }
