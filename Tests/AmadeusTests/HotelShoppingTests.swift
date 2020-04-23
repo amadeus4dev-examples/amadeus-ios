@@ -1,7 +1,7 @@
 @testable import Amadeus
 import XCTest
 
-class EndpointHotelTests: XCTestCase {
+class HotelShoppingTests: XCTestCase {
     var amadeus: Amadeus!
 
     override func setUp() {
