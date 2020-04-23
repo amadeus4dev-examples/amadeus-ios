@@ -194,60 +194,62 @@ amadeus.shopping.flightOffersSearch.get(data: ["originLocationCode": "MAD",
                                                "destinationLocationCode": "BER",
                                                "departureDate": "2020-05-16",
                                                "returnDate": "2020-05-30",
-                                               "adults": "2"], onCompletion: {
+                                               "adults": "2"], onCompletion: { ... })
 
-amadeus.shopping.flightOffersSearch.post(body: jsonBody, onCompletion: {
+amadeus.shopping.flightOffersSearch.post(body: jsonBody, onCompletion: { ... })
+
+// Flight Offers Price
+amadeus.shopping.flightOffers.pricing.post(body: jsonBody, onCompletion: { ... })
 
 // Flight Inspiration Search
 amadeus.shopping.flightDestinations.get(data: ["origin": "BOS", 
-                                               "maxPrice": "10000"], onCompletion: {
+                                               "maxPrice": "10000"], onCompletion: { ... })
 
 // Flight Cheapest Date Search
 amadeus.shopping.flightDates.get(data:["origin": "LHR",
-                                       "destination": "PAR"], onCompletion: {
+                                       "destination": "PAR"], onCompletion: { ... })
 
 // Flight Checkin Links
-amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
+amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: { ... })
 
 // Airline Code Lookup
-amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: {
+amadeus.referenceData.airLines.get(data:["airlineCodes": "BA"], onCompletion: { ... })
 
 // Airports and City Search
 amadeus.referenceData.locations.get(data:["subType": "AIRPORT,CITY",
-                                          "keyword": "lon"], onCompletion: {
+                                          "keyword": "lon"], onCompletion: { ... })
 
 // Get a specific city or airport based on its id
-amadeus.referenceData.location(locationId: "ALHR").get(data:[:], onCompletion: {
-})
+amadeus.referenceData.location(locationId: "ALHR").get(data:[:], onCompletion: { ... })
 
 // Airport Nearest Relevant Airport
 amadeus.referenceData.locations.airports.get(data:["longitude": "49.0000",
-                                                   "latitude": "2.55"], onCompletion: {
+                                                   "latitude": "2.55"], onCompletion: { ... })
 
 // Flight Most Booked Destinations
 amadeus.travel.analytics.airTraffic.booked.get(data:["originCityCode": "MAD",
-                                                     "period": "2017-11"], onCompletion: {
+                                                     "period": "2017-11"], onCompletion: { ... })
 
 // Flight Most Traveled Destinations
 amadeus.travel.analytics.airTraffic.traveled.get(data:["originCityCode": "MAD",
-                                                       "period": "2018-11"], onCompletion: {
+                                                       "period": "2018-11"], onCompletion: { ... })
 
 // Flight Busiest Traveling Period
 amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD",
                                                             "period": "2018",
-                                                            "direction": "ARRIVING"], onCompletion: {
+                                                            "direction": "ARRIVING"], onCompletion: { ... })
 
 // Hotel Search API
 
 // Get list of hotels by city code
-amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD"], onCompletion: {
+amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD"], onCompletion: { ... })
 
 // Get list of offers for a specific hotel
 amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
-                                             "roomQuantity": "1"], onCompletion: {
+                                             "roomQuantity": "1"], onCompletion: { ... })
 
 // Confirm the availability of a specific offer for a specific hotel
-amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: {
+amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: { ... })
 ```
 
 ## Development & Contributing

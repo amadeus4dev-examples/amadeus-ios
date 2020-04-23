@@ -1,7 +1,7 @@
 @testable import Amadeus
 import XCTest
 
-class EndpointHotelTests: XCTestCase {
+class HotelShoppingTests: XCTestCase {
     var amadeus: Amadeus!
 
     override func setUp() {
@@ -55,6 +55,7 @@ class EndpointHotelTests: XCTestCase {
         amadeus.shopping.hotelOffer(hotelId: hotelId).get(data: [:],
                                                           onCompletion: {
                                                               data, _ in
+                                                              XCTAssertEqual(data?.statusCode, 200)
                                                               XCTAssertNotNil(data)
                                                               expectation.fulfill()
                                                           })
