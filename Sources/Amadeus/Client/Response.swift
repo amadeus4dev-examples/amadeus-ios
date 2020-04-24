@@ -10,6 +10,7 @@ public enum ResponseError: Error {
     case internalServerError // 500 - there is an error on the server
     case unknownStatusCode(Int) // unknown http code
     case returnedError(Error) // non http error
+    case invalidInputJSON // invalid JSON in the request
 }
 
 public class Response {
@@ -26,7 +27,7 @@ public class Response {
         case 200 ... 208:
             return nil
         case 400:
-            return ResponseError.badRequestError(result["errors"][0]["detail"].string!)
+            return ResponseError.badRequestError(result["errors"][0]["detail"].string ?? "Invalid format")
         case 401:
             return ResponseError.authenticationError
         case 403:

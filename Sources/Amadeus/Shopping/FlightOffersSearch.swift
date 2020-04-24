@@ -57,7 +57,7 @@ public class FlightOffersSearch {
     ///  - Returns:
     ///    `JSON` object
     public func post(body: JSON, onCompletion: @escaping AmadeusResponse) {
-        client.post(path: "/v2/shopping/flight-offers", body: body, onCompletion: {
+        client.post(path: "/v2/shopping/flight-offers", body: body, params: [:], onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

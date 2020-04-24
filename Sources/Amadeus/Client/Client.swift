@@ -38,14 +38,14 @@ public class Client {
         })
     }
 
-    public func post(path: String, body: JSON, onCompletion: @escaping AmadeusResponse) {
+    public func post(path: String, body: JSON, params: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
         if let bodyString = body.rawString() {
-            request(verb: "POST", path: path, params: "", body: bodyString, onCompletion: {
+            request(verb: "POST", path: path, params: generateGetParameters(data: params), body: bodyString, onCompletion: {
                 response, error in
                 onCompletion(response, error)
-                         })
+            })
         } else {
-            onCompletion(nil, nil)
+            onCompletion(nil, ResponseError.invalidInputJSON)
         }
     }
 
