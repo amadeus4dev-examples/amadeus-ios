@@ -9,10 +9,8 @@ import Foundation
 /// ```
 public class Booking {
     public let flightOrders: FlightOrders
-   private let client: Client
 
     public init(client: Client) {
         flightOrders = FlightOrders(client: client)
-       self.client = client
     }
 }
