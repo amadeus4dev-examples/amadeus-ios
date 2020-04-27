@@ -3,6 +3,7 @@ import Foundation
 public class Amadeus {
     public let client: Client
     public let shopping: Shopping
+    public let booking: Booking
     public let travel: Travel
     public let referenceData: ReferenceData
 
@@ -12,6 +13,7 @@ public class Amadeus {
                         environment: environment)
 
         shopping = Shopping(client: client)
+        booking = Booking(client: client)
         travel = Travel(client: client)
         referenceData = ReferenceData(client: client)
     }

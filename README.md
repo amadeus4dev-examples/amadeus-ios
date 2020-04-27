@@ -201,6 +201,9 @@ amadeus.shopping.flightOffersSearch.post(body: jsonBody, onCompletion: { ... })
 // Flight Offers Price
 amadeus.shopping.flightOffers.pricing.post(body: jsonBody, onCompletion: { ... })
 
+// Flight Create Orders
+amadeus.booking.flightOrders.post(body: jsonBody, onCompletion: { ... })
+
 // Flight Inspiration Search
 amadeus.shopping.flightDestinations.get(data: ["origin": "BOS", 
                                                "maxPrice": "10000"], onCompletion: { ... })
