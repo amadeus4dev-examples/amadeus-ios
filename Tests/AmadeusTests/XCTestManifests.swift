@@ -8,7 +8,8 @@ import XCTest
             testCase(AirAITests.allTests),
             testCase(AirTravelInsightsTests.allTests),
             testCase(AirUtilsTests.allTests),
-            testCase(HotelShoppingTests.allTests),
+            testCase(HotelTests.allTests),
+            testCase(TripAITests.allTests),
             testCase(CoreTests.allTests),
         ]
     }

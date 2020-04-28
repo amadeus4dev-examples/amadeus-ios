@@ -273,6 +273,11 @@ amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
 // Confirm the availability of a specific offer for a specific hotel
 amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: { ... })
 
+// Hotel Booking API
+
+// Book the offer retrieved from Hotel Search API.
+amadeus.booking.hotelBookings.post(body: body, onCompletion: { ... })
+
 // Trip APIs
 
 // Trip Purpose Prediction
