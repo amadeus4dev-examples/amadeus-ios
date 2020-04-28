@@ -5,34 +5,43 @@ public typealias AmadeusResponse = (Response?, ResponseError?) -> Void
 public func _get(url: String,
                  headers: [String: String],
                  onCompletion: @escaping AmadeusResponse) {
-    let request = NSMutableURLRequest(url: URL(string: url)!)
 
-    for header in headers {
-        request.setValue(header.value, forHTTPHeaderField: header.key)
+    if let url = URL(string: url) {
+        let request = NSMutableURLRequest(url: url)
+
+        for header in headers {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+
+        send(request: request, onCompletion: { (response, error) -> Void in
+            onCompletion(response, error)
+             })
+    } else {
+        onCompletion(nil, ResponseError.malformedURL)
     }
-
-    send(request: request, onCompletion: {
-        response, error in
-        onCompletion(response, error)
-         })
 }
 
 public func _post(url: String,
                   headers: [String: String],
                   body: String,
                   onCompletion: @escaping AmadeusResponse) {
-    let request = NSMutableURLRequest(url: URL(string: url)!)
 
-    request.httpMethod = "POST"
-    request.httpBody = body.data(using: String.Encoding.utf8)
+    if let url = URL(string: url) {
+        let request = NSMutableURLRequest(url: url)
 
-    for header in headers {
-        request.setValue(header.value, forHTTPHeaderField: header.key)
+        request.httpMethod = "POST"
+        request.httpBody = body.data(using: String.Encoding.utf8)
+
+        for header in headers {
+            request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+
+        send(request: request, onCompletion: { (response, error) -> Void in
+            onCompletion(response, error)
+             })
+    } else {
+        onCompletion(nil, ResponseError.malformedURL)
     }
-
-    send(request: request, onCompletion: { (response, error) -> Void in
-        onCompletion(response, error)
-         })
 }
 
 private func send(request: NSMutableURLRequest,

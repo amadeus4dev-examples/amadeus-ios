@@ -1,18 +1,16 @@
 import Foundation
 
-/// A namespaced client for the `v1/travel/` endpoints
+/// A namespaced client for the `v1/airport/` endpoints
 ///
 /// Access via the `Amadeus` object
 /// ```
 /// let amadeus = Amadeus(client_id, client_secret)
-/// amadeus.travel
+/// amadeus.airport
 /// ```
-public class Travel {
-    public let analytics: Analytics
+public class Airport {
     public let predictions: Predictions
 
     public init(client: Client) {
-        analytics = Analytics(client: client)
         predictions = Predictions(client: client)
     }
 }

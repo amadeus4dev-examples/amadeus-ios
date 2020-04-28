@@ -212,6 +212,25 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "BOS",
 amadeus.shopping.flightDates.get(data:["origin": "LHR",
                                        "destination": "PAR"], onCompletion: { ... })
 
+// Airport On-Time Performance
+amadeus.airport.predictions.onTime.get(data: ["airportCode": "JFK"], onCompletion: { ... })
+
+// Flight Delay Prediction
+amadeus.travel.predictions.flightDelay.get(data: ["originLocationCode": "NCE",
+                                                  "destinationLocationCode": "IST",
+                                                  "departureDate":"2020-08-01",
+                                                  "departureTime":"18:20:00",
+                                                  "arrivalDate":"2020-08-01",
+                                                  "arrivalTime":"22:15:00",
+                                                  "aircraftCode":"321",
+                                                  "carrierCode":"TK",
+                                                  "flightNumber":"1816",
+                                                  "duration":"PT31H10M"],
+                                                       onCompletion: { ... })
+
+// Flight Choice Prediction
+amadeus.shopping.flightOffers.prediction.post(body: jsonBody, onCompletion: { ... })
+
 // Flight Checkin Links
 amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: { ... })
 
@@ -253,6 +272,19 @@ amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
 
 // Confirm the availability of a specific offer for a specific hotel
 amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: { ... })
+
+// Trip APIs
+
+// Trip Purpose Prediction
+amadeus.travel.predictions.tripPurpose.get(data: ["originLocationCode": "NYC",
+                                                  "destinationLocationCode": "MAD",
+                                                  "departureDate":"2020-08-01",
+                                                  "returnDate":"2020-08-12",
+                                                  "searchDate":"2020-06-11"],
+                                                  onCompletion: { ... })
+// AI-Generated Photos
+amadeus.media.files.generatedPhotos.get(data: ["category": "MOUNTAIN"],
+                                        onCompletion: { ... })
 ```
 
 ## Development & Contributing

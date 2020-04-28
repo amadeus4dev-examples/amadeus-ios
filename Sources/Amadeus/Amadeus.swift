@@ -4,7 +4,9 @@ public class Amadeus {
     public let client: Client
     public let shopping: Shopping
     public let booking: Booking
+    public let airport: Airport
     public let travel: Travel
+    public let media: Media
     public let referenceData: ReferenceData
 
     public init(client_id: String, client_secret: String, environment: [String: Any]) {
@@ -14,7 +16,9 @@ public class Amadeus {
 
         shopping = Shopping(client: client)
         booking = Booking(client: client)
+        airport = Airport(client: client)
         travel = Travel(client: client)
+        media = Media(client: client)
         referenceData = ReferenceData(client: client)
     }
 

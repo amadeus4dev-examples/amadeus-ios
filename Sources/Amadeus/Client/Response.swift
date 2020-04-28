@@ -11,6 +11,7 @@ public enum ResponseError: Error {
     case unknownStatusCode(Int) // unknown http code
     case returnedError(Error) // non http error
     case invalidInputJSON // invalid JSON in the request
+    case malformedURL // invalid http request format
 }
 
 public class Response {
