@@ -261,7 +261,7 @@ amadeus.travel.analytics.airTraffic.busiestPeriod.get(data:["cityCode": "MAD",
                                                             "period": "2018",
                                                             "direction": "ARRIVING"], onCompletion: { ... })
 
-// Hotel Search API
+// Hotel APIs
 
 // Get list of hotels by city code
 amadeus.shopping.hotelOffers.get(data:["cityCode": "MAD"], onCompletion: { ... })
@@ -273,10 +273,12 @@ amadeus.shopping.hotelOfferByHotel.get(data:["hotelId": "BGMILBGB",
 // Confirm the availability of a specific offer for a specific hotel
 amadeus.shopping.hotelOffer(hotelId: "foobar").get(data:[:], onCompletion: { ... })
 
-// Hotel Booking API
-
 // Book the offer retrieved from Hotel Search API.
 amadeus.booking.hotelBookings.post(body: body, onCompletion: { ... })
+
+// Get ratings and sentiment scores for hotels.
+amadeus.eReputation.hotelSentiments.get(data: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
+                                        onCompletion: { ... })
 
 // Trip APIs
 

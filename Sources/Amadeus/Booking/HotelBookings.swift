@@ -8,7 +8,7 @@ public class HotelBookings {
         self.client = client
     }
 
-    /// Books a flight
+    /// Books a hotel
     ///
     /// - Returns:
     ///    `JSON` object

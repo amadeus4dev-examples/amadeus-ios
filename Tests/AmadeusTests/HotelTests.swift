@@ -48,6 +48,20 @@ class HotelTests: XCTestCase {
         wait(for: [expectation], timeout: 60)
     }
 
+    func testHotelSentiments() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        amadeus.eReputation.hotelSentiments.get(data: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
+                                                onCompletion: {
+                data, _ in
+                XCTAssertEqual(data?.statusCode, 200)
+                XCTAssertNotNil(data)
+                expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 60)
+    }
+
     func testHotelOffer() {
         let expectation = XCTestExpectation(description: "TimeOut")
 

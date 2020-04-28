@@ -7,6 +7,7 @@ public class Amadeus {
     public let airport: Airport
     public let travel: Travel
     public let media: Media
+    public let eReputation: EReputation
     public let referenceData: ReferenceData
 
     public init(client_id: String, client_secret: String, environment: [String: Any]) {
@@ -19,6 +20,7 @@ public class Amadeus {
         airport = Airport(client: client)
         travel = Travel(client: client)
         media = Media(client: client)
+        eReputation = EReputation(client: client)
         referenceData = ReferenceData(client: client)
     }
 
