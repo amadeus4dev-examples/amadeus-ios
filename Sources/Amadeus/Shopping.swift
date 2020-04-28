@@ -12,6 +12,7 @@ public class Shopping {
     public let flightDestinations: FlightDestinations
     public let flightDates: FlightDates
     public let flightOffers: FlightOffers
+    public let seatMaps: SeatMaps
     public let hotelOffers: HotelOffers
     public let hotelOfferByHotel: HotelOfferByHotel
     private let client: Client
@@ -21,6 +22,7 @@ public class Shopping {
         flightDestinations = FlightDestinations(client: client)
         flightDates = FlightDates(client: client)
         flightOffers = FlightOffers(client: client)
+        seatMaps = SeatMaps(client: client)
         hotelOffers = HotelOffers(client: client)
         hotelOfferByHotel = HotelOfferByHotel(client: client)
         self.client = client
