@@ -9,8 +9,10 @@ import Foundation
 /// ```
 public class Booking {
     public let flightOrders: FlightOrders
+    public let hotelBookings: HotelBookings
 
     public init(client: Client) {
         flightOrders = FlightOrders(client: client)
+        hotelBookings = HotelBookings(client: client)
     }
 }
