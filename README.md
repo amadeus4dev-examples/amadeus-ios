@@ -212,6 +212,12 @@ amadeus.shopping.flightDestinations.get(data: ["origin": "BOS",
 amadeus.shopping.flightDates.get(data:["origin": "LHR",
                                        "destination": "PAR"], onCompletion: { ... })
 
+// Seatmap Display
+amadeus.shopping.seatMaps.get(data: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
+                              onCompletion: { ... })
+
+amadeus.shopping.seatMaps.post(body: body, onCompletion: { ... })
+
 // Airport On-Time Performance
 amadeus.airport.predictions.onTime.get(data: ["airportCode": "JFK"], onCompletion: { ... })
 
