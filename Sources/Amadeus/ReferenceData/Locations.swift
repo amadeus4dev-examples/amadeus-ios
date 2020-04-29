@@ -19,6 +19,10 @@ public class Locations {
         pointsOfInterest = PointsOfInterest(client: client)
     }
 
+    public func pointOfInterest(poiId: String) -> PointOfInterest {
+        return PointOfInterest(client: client, poiId: poiId)
+    }
+
     /// Returns a list of airports and cities matching a given keyword.
     ///
     ///   ## Example

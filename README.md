@@ -286,6 +286,24 @@ amadeus.booking.hotelBookings.post(body: body, onCompletion: { ... })
 amadeus.eReputation.hotelSentiments.get(data: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
                                         onCompletion: { ... })
 
+// Destination Content
+
+// Returns a list of relevant points of interest near to a given point.
+amadeus.referenceData.locations.pointsOfInterest.get(data: ["latitude": "41.397158",
+                                                            "longitude": "2.160873",
+                                                            "radius": "2"], onCompletion: { ... })
+
+// Returns a list of relevant point of interests around 4 points
+amadeus.referenceData.locations.pointsOfInterest.bySquare.get(data: ["north": "41.397158",
+                                                                     "west": "2.160873",
+                                                                     "south": "41.394582",
+                                                                     "east": "2.177181"],
+                                                                onCompletion: { ... })
+
+// Retrieve a point of interest by its id
+amadeus.referenceData.locations.pointOfInterest(poiId: "8DA7B6CDCA").get(onCompletion: { ... })
+
+
 // Trip APIs
 
 // Trip Purpose Prediction
