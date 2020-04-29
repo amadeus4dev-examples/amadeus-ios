@@ -10,6 +10,7 @@ import XCTest
             testCase(AirUtilsTests.allTests),
             testCase(HotelTests.allTests),
             testCase(TripAITests.allTests),
+            testCase(DestinationContentTests.allTests),
             testCase(CoreTests.allTests),
         ]
     }
