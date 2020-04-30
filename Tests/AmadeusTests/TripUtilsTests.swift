@@ -2,7 +2,7 @@
 import SwiftyJSON
 import XCTest
 
-class AirTravelInsightsTests: XCTestCase {
+class TripUtilsTests: XCTestCase {
     var amadeus: Amadeus!
 
     override func setUp() {
@@ -19,12 +19,40 @@ class AirTravelInsightsTests: XCTestCase {
         super.tearDown()
     }
 
-
-    func testMostTraveled() {
+    func testTripParserJobs() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.analytics.airTraffic.traveled.get(params: ["originCityCode": "MAD",
-                                                                "period": "2017-11"], onCompletion: {
+        let jsonString: String = """
+        {
+         "data": {
+            "type": "trip-parser-job",
+            "content": ""
+          }
+        }
+        """
+        let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
+
+        do {
+            let body: JSON = try JSON(data: dataFromString!)
+
+             amadeus.travel.tripParserJobs.post(body: body,
+                                                onCompletion: {
+                data, _ in
+                XCTAssertEqual(data?.statusCode, 200)
+                XCTAssertNotNil(data)
+                expectation.fulfill()
+            })
+        } catch _ as NSError {
+            assertionFailure("JSON not valid")
+        }
+ 
+        wait(for: [expectation], timeout: 60)
+    }
+
+    func testTripParserStatus() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        amadeus.travel.tripParserJobs.status(jobId: "XXX").get(onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
                 XCTAssertNotNil(data)
@@ -34,26 +62,10 @@ class AirTravelInsightsTests: XCTestCase {
         wait(for: [expectation], timeout: 60)
     }
 
-    func testMostBooked() {
+    func testTripParserResult() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.analytics.airTraffic.booked.get(params: ["originCityCode": "MAD",
-                                                              "period": "2017-11"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
-        })
-
-        wait(for: [expectation], timeout: 60)
-    }
-
-    func testBusiestPeriod() {
-        let expectation = XCTestExpectation(description: "TimeOut")
-
-        amadeus.travel.analytics.airTraffic.busiestPeriod.get(params: ["cityCode": "MAD",
-                                                                     "period": "2017",
-                                                                     "direction": "ARRIVING"], onCompletion: {
+        amadeus.travel.tripParserJobs.result(jobId: "XXX").get(onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
                 XCTAssertNotNil(data)

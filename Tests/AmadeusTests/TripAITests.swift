@@ -22,7 +22,7 @@ class TripAITests: XCTestCase {
     func testTripPurposePrediction() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.predictions.tripPurpose.get(data: ["originLocationCode": "NYC",
+        amadeus.travel.predictions.tripPurpose.get(params: ["originLocationCode": "NYC",
                                                           "destinationLocationCode": "MAD",
                                                           "departureDate":"2020-08-01",
                                                           "returnDate":"2020-08-12",
@@ -42,7 +42,7 @@ class TripAITests: XCTestCase {
     func testAIGeneratedPhotos() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.media.files.generatedPhotos.get(data: ["category": "MOUNTAIN"],
+        amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
                                                 onCompletion: {
                 data, _ in
                 print(data?.data ?? "")

@@ -22,7 +22,7 @@ class AirShoppingTests: XCTestCase {
     func testFlightDestinations() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.flightDestinations.get(data: ["origin": "MAD",
+        amadeus.shopping.flightDestinations.get(params: ["origin": "MAD",
                                                        "maxPrice": "500"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -37,7 +37,7 @@ class AirShoppingTests: XCTestCase {
     func testFlightOffersSearchGet() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.flightOffersSearch.get(data: ["originLocationCode": "MAD",
+        amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                        "destinationLocationCode": "BER",
                                                        "departureDate": "2020-05-16",
                                                        "returnDate": "2020-05-30",
@@ -143,7 +143,7 @@ class AirShoppingTests: XCTestCase {
     func testFlightDates() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.flightDates.get(data: ["origin": "MAD",
+        amadeus.shopping.flightDates.get(params: ["origin": "MAD",
                                                 "destination": "BOS"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -432,7 +432,7 @@ class AirShoppingTests: XCTestCase {
     func testSeatMapsGet() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.seatMaps.get(data: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
+        amadeus.shopping.seatMaps.get(params: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
                                       onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)

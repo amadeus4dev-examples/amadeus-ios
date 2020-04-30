@@ -24,8 +24,8 @@ public class PointOfInterest {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/reference-data/locations/pois/\(poiId)", params: data, onCompletion: {
+    public func get(onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/reference-data/locations/pois/\(poiId)", params: [:], onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

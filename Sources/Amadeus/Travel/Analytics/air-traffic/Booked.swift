@@ -20,8 +20,8 @@ public class Booked {
     ///   Find the air traffic from London in May 2016
     ///
     ///     amadeus.travel.analytics.airTraffic.booked.get(
-    ///         originCityCode:"LON",
-    ///         period: "2016-05",
+    ///         params: [originCityCode:"LON",
+    ///         period: "2016-05"],
     ///         onCompletion: {
     ///             data in ...}
     ///     )
@@ -31,8 +31,8 @@ public class Booked {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/travel/analytics/air-traffic/booked", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/travel/analytics/air-traffic/booked", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

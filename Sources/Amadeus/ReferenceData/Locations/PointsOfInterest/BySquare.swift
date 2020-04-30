@@ -18,7 +18,7 @@ public class BySquare {
     /// around a defined square (4 points).
     ///
     ///   amadeus.referenceData.locations.pointsOfInterest.bySquare.get(
-    ///                                            data: ["north": "41.397158",
+    ///                                            params: ["north": "41.397158",
     ///                                                   "west": "2.160873",
     ///                                                   "south": "41.394582",
     ///                                                   "east": "2.177181"],
@@ -32,8 +32,8 @@ public class BySquare {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/reference-data/locations/pois/by-square", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/reference-data/locations/pois/by-square", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

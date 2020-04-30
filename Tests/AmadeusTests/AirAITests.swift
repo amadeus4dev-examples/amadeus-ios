@@ -22,7 +22,7 @@ class AirAITests: XCTestCase {
     func testAirportOnTimePerformance() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.airport.predictions.onTime.get(data: ["airportCode": "JFK",
+        amadeus.airport.predictions.onTime.get(params: ["airportCode": "JFK",
                                                        "date": "2020-08-01"], onCompletion: {
                 data, _ in
                 print(data?.data ?? "")
@@ -37,7 +37,7 @@ class AirAITests: XCTestCase {
     func testFlightDelayPrediction() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.predictions.flightDelay.get(data: ["originLocationCode": "NCE",
+        amadeus.travel.predictions.flightDelay.get(params: ["originLocationCode": "NCE",
                                                           "destinationLocationCode": "IST",
                                                           "departureDate":"2020-08-01",
                                                           "departureTime":"18:20:00",
@@ -61,7 +61,7 @@ class AirAITests: XCTestCase {
     func testFlighChoicePrediction() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.flightOffersSearch.get(data: ["originLocationCode": "MAD",
+        amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                        "destinationLocationCode": "BER",
                                                        "departureDate": "2020-05-16",
                                                        "returnDate": "2020-05-30",

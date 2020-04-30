@@ -14,8 +14,10 @@ public class TripPurpose {
         self.client = client
     }
 
-   public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/travel/predictions/trip-purpose", params: data, onCompletion: {
+   /// Predicts traveler purpose, Business or Leisure,
+   /// with the probability in the context of search & shopping
+   public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/travel/predictions/trip-purpose", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

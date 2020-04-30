@@ -20,9 +20,9 @@ public class BusiestPeriod {
     ///   Find the air traffic for travelers arriving in Paris in 2017
     ///
     ///     amadeus.travel.analytics.airTraffic.busiestPeriod.get(
-    ///         cityCode:"PAR",
-    ///         period: "2017",
-    ///         direction: "arriving",
+    ///         params: ["cityCode":"PAR",
+    ///         "period": "2017",
+    ///         "direction": "arriving"],
     ///         onCompletion: {
     ///             data in ...}
     ///     )
@@ -32,8 +32,8 @@ public class BusiestPeriod {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/travel/analytics/air-traffic/busiest-period", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/travel/analytics/air-traffic/busiest-period", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

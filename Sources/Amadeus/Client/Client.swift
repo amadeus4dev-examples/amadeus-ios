@@ -17,10 +17,10 @@ public class Client {
                                   config: configuration)
     }
 
-    private func generateGetParameters(data: [String: String]) -> String {
+    private func generateGetParameters(params: [String: String]) -> String {
         var res = ""
         var firstTime = true
-        for item in data {
+        for item in params {
             if firstTime {
                 firstTime = false
                 res += "?\(item.key)=\(item.value)"
@@ -32,7 +32,7 @@ public class Client {
     }
 
     public func get(path: String, params: [String: String], onCompletion: @escaping AmadeusResponse) {
-        request(verb: "GET", path: path, params: generateGetParameters(data: params), body: nil, onCompletion: {
+        request(verb: "GET", path: path, params: generateGetParameters(params: params), body: nil, onCompletion: {
             response, error in
             onCompletion(response, error)
         })
@@ -40,7 +40,7 @@ public class Client {
 
     public func post(path: String, body: JSON, params: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
         if let bodyString = body.rawString() {
-            request(verb: "POST", path: path, params: generateGetParameters(data: params), body: bodyString, onCompletion: {
+            request(verb: "POST", path: path, params: generateGetParameters(params: params), body: bodyString, onCompletion: {
                 response, error in
                 onCompletion(response, error)
             })
@@ -50,7 +50,7 @@ public class Client {
     }
 
     public func delete(path: String, params: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
-        request(verb: "DELETE", path: path, params: generateGetParameters(data: params), body: nil, onCompletion: {
+        request(verb: "DELETE", path: path, params: generateGetParameters(params: params), body: nil, onCompletion: {
             response, error in
             onCompletion(response, error)
         })

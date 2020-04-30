@@ -18,8 +18,8 @@ public class HotelSentiments {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v2/e-reputation/hotel-sentiments", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/e-reputation/hotel-sentiments", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

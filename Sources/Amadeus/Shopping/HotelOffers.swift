@@ -20,7 +20,7 @@ public class HotelOffers {
     ///   Search for hotels in Paris
     ///
     ///     amadeus.shopping.hotelOffers.get(
-    ///         cityCode:"PAR",
+    ///         params: [cityCode:"PAR"],
     ///         onCompletion: {
     ///             data in ...}
     ///     )
@@ -29,8 +29,8 @@ public class HotelOffers {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v2/shopping/hotel-offers", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/shopping/hotel-offers", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })
