@@ -321,6 +321,16 @@ amadeus.travel.predictions.tripPurpose.get(params: ["originLocationCode": "NYC",
                                                   "returnDate":"2020-08-12",
                                                   "searchDate":"2020-06-11"],
                                                   onCompletion: { ... })
+
+// Trip Parser Jobs
+amadeus.travel.tripParserJobs.post(body: jsonBody, onCompletion: { ... })
+
+// Trip Parser Jobs, get status
+amadeus.travel.tripParserJobs.status(jobId: response.data['id']).get(onCompletion: { ... })
+
+// Trip Parser Jobs, get result
+amadeus.travel.tripParserJobs.result(jobId: response.data['id']).get(onCompletion: { ... })
+
 // AI-Generated Photos
 amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
                                         onCompletion: { ... })
