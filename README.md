@@ -204,6 +204,14 @@ amadeus.shopping.flightOffers.pricing.post(body: jsonBody, onCompletion: { ... }
 // Flight Create Orders
 amadeus.booking.flightOrders.post(body: jsonBody, onCompletion: { ... })
 
+// Flight Order Management (Retrieve)
+amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").get(
+                                 onCompletion: { ... })
+
+// Flight Order Management (Delete)
+amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").delete(
+                                 onCompletion: { ... })
+
 // Flight Inspiration Search
 amadeus.shopping.flightDestinations.get(data: ["origin": "BOS", 
                                                "maxPrice": "10000"], onCompletion: { ... })
