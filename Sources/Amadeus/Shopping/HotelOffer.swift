@@ -16,8 +16,8 @@ public class HotelOffer {
         self.hotelId = hotelId
     }
 
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v2/shopping/hotel-offers/\(hotelId)", params: data, onCompletion: {
+    public func get(onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/shopping/hotel-offers/\(hotelId)", params: [:], onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

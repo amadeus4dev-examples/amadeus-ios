@@ -13,8 +13,8 @@ public class OnTime{
     ///    `JSON` object
     ///
 
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/airport/predictions/on-time", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/airport/predictions/on-time", params: params, onCompletion: {
                        response, error in
                        onCompletion(response, error)
                    })

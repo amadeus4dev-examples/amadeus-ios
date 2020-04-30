@@ -48,8 +48,8 @@ public class Amadeus {
                   environment: environment)
     }
 
-    private func getComponentsFromURL(data: Response, keyword: String) -> (path: String, params: [String: String]) {
-        if let nextURL = data.result["meta"]["links"][keyword].string {
+    private func getComponentsFromURL(response: Response, keyword: String) -> (path: String, params: [String: String]) {
+        if let nextURL = response.result["meta"]["links"][keyword].string {
             let url = URL(string: nextURL)
 
             var dict = [String: String]()
@@ -66,47 +66,47 @@ public class Amadeus {
         }
     }
 
-    public func next(data: Response, onCompletion: @escaping AmadeusResponse) {
-        let (path, params) = getComponentsFromURL(data: data, keyword: "next")
+    public func next(response: Response, onCompletion: @escaping AmadeusResponse) {
+        let (path, params) = getComponentsFromURL(response: response, keyword: "next")
 
         if path == "error" {
             onCompletion(nil, nil)
         }
 
         client.get(path: path, params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
+            data, error in
+            onCompletion(data, error)
                         })
     }
 
-    public func previous(data: Response, onCompletion: @escaping AmadeusResponse) {
-        let (path, params) = getComponentsFromURL(data: data, keyword: "previous")
+    public func previous(response: Response, onCompletion: @escaping AmadeusResponse) {
+        let (path, params) = getComponentsFromURL(response: response, keyword: "previous")
 
         if path == "error" {
             onCompletion(nil, nil)
         }
 
         client.get(path: path, params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
+            data, error in
+            onCompletion(data, error)
                         })
     }
 
-    public func last(data: Response, onCompletion: @escaping AmadeusResponse) {
-        let (path, params) = getComponentsFromURL(data: data, keyword: "last")
+    public func last(response: Response, onCompletion: @escaping AmadeusResponse) {
+        let (path, params) = getComponentsFromURL(response: response, keyword: "last")
 
         if path == "error" {
             onCompletion(nil, nil)
         }
 
         client.get(path: path, params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
+            data, error in
+            onCompletion(data, error)
                         })
     }
 
-    public func first(data: Response, onCompletion: @escaping AmadeusResponse) {
-        let (path, params) = getComponentsFromURL(data: data, keyword: "last")
+    public func first(response: Response, onCompletion: @escaping AmadeusResponse) {
+        let (path, params) = getComponentsFromURL(response: response, keyword: "last")
 
         if path == "error" {
             onCompletion(nil, nil)

@@ -23,7 +23,7 @@ class AirTravelInsightsTests: XCTestCase {
     func testMostTraveled() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.analytics.airTraffic.traveled.get(data: ["originCityCode": "MAD",
+        amadeus.travel.analytics.airTraffic.traveled.get(params: ["originCityCode": "MAD",
                                                                 "period": "2017-11"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -37,7 +37,7 @@ class AirTravelInsightsTests: XCTestCase {
     func testMostBooked() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.analytics.airTraffic.booked.get(data: ["originCityCode": "MAD",
+        amadeus.travel.analytics.airTraffic.booked.get(params: ["originCityCode": "MAD",
                                                               "period": "2017-11"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -51,7 +51,7 @@ class AirTravelInsightsTests: XCTestCase {
     func testBusiestPeriod() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.travel.analytics.airTraffic.busiestPeriod.get(data: ["cityCode": "MAD",
+        amadeus.travel.analytics.airTraffic.busiestPeriod.get(params: ["cityCode": "MAD",
                                                                      "period": "2017",
                                                                      "direction": "ARRIVING"], onCompletion: {
                 data, _ in

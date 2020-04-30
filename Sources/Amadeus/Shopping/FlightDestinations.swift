@@ -31,8 +31,8 @@ public class FlightDestinations {
     ///
     /// - Returns:
     ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/shopping/flight-destinations", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/shopping/flight-destinations", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

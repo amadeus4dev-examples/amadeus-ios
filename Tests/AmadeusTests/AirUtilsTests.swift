@@ -22,7 +22,7 @@ class AirUtilsTests: XCTestCase {
    func testCheckinLinks() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.urls.checkinLinks.get(data: ["airlineCode": "BA"], onCompletion: {
+        amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"], onCompletion: {
             data, _ in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -35,11 +35,11 @@ class AirUtilsTests: XCTestCase {
     func testAirportNearestRelevant() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.locations.airports.get(data: ["longitude": "2.55",
+        amadeus.referenceData.locations.airports.get(params: ["longitude": "2.55",
                                                             "latitude": "49.0000"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
-                self.amadeus.next(data: data!, onCompletion: { data, _ in
+                self.amadeus.next(response: data!, onCompletion: { data, _ in
                     XCTAssertNotNil(data as Any)
                     expectation.fulfill()
             })
@@ -51,7 +51,7 @@ class AirUtilsTests: XCTestCase {
     func testAirportCitySearch() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.locations.get(data: ["subType": "AIRPORT,CITY",
+        amadeus.referenceData.locations.get(params: ["subType": "AIRPORT,CITY",
                                                    "keyword": "lon"], onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -65,7 +65,7 @@ class AirUtilsTests: XCTestCase {
     func testAirportCitySearchById() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.location(locationId: "CMUC").get(data: [:], onCompletion: {
+        amadeus.referenceData.location(locationId: "CMUC").get(params: [:], onCompletion: {
             data, _ in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -78,7 +78,7 @@ class AirUtilsTests: XCTestCase {
     func testAirLines() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.airLines.get(data: ["airlineCodes": "BA"], onCompletion: {
+        amadeus.referenceData.airLines.get(params: ["airlineCodes": "BA"], onCompletion: {
             data, _ in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)

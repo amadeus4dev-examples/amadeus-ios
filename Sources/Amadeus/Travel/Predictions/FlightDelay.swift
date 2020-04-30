@@ -14,25 +14,9 @@ public class FlightDelay {
         self.client = client
     }
 
-    /// Returns a list of air traffic reports based on the number of bookings.
-    ///
-    ///   ## Example
-    ///   Find the air traffic from London in May 2016
-    ///
-    ///     amadeus.travel.analytics.airTraffic.booked.get(
-    ///         originCityCode:"LON",
-    ///         period: "2016-05",
-    ///         onCompletion: {
-    ///             data in ...}
-    ///     )
-    /// - Parameters:
-    ///    - originCityCode: `String` IATA code of the origin city.
-    ///    - period: `String` period when consumers are travelling in `YYYY-MM` format
-    ///
-    /// - Returns:
-    ///    `JSON` object
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/travel/predictions/flight-delay", params: data, onCompletion: {
+   /// Will there be a delay from BRU to FRA? If so how much delay?
+   public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v1/travel/predictions/flight-delay", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

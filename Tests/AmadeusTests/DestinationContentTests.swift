@@ -22,7 +22,7 @@ class DestinationContentTests: XCTestCase {
     func testPointsOfInterestSearch() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.locations.pointsOfInterest.get(data: ["latitude": "41.397158",
+        amadeus.referenceData.locations.pointsOfInterest.get(params: ["latitude": "41.397158",
                                                                     "longitude": "2.160873",
                                                                     "radius": "2"], onCompletion: {
             data, _ in
@@ -37,7 +37,7 @@ class DestinationContentTests: XCTestCase {
     func testPointsOfInterestSearchBySquare() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.locations.pointsOfInterest.bySquare.get(data: ["north": "41.397158",
+        amadeus.referenceData.locations.pointsOfInterest.bySquare.get(params: ["north": "41.397158",
                                                                              "west": "2.160873",
                                                                              "south": "41.394582",
                                                                              "east": "2.177181"],

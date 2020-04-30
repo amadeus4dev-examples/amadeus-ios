@@ -14,7 +14,7 @@ public class FlightOffersSearch {
     ///   Find the cheapest flights from New-York to Madrid for Summer 2020
     ///
     ///   amadeus.shopping.flightOffersSearch.get(
-    ///            data: [
+    ///            params: [
     ///            "originLocationCode": "MAD",
     ///            "destinationLocationCode: "NYC",
     ///            "departureDate": "2019-08-01",
@@ -38,8 +38,8 @@ public class FlightOffersSearch {
     /// - Returns:
     ///    `JSON` object
     ///
-    public func get(data: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v2/shopping/flight-offers", params: data, onCompletion: {
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+        client.get(path: "v2/shopping/flight-offers", params: params, onCompletion: {
             response, error in
             onCompletion(response, error)
                     })

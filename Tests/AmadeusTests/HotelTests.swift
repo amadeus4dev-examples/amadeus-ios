@@ -21,7 +21,7 @@ class HotelTests: XCTestCase {
     func testHotelOffers() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.hotelOffers.get(data: ["cityCode": "PAR"], onCompletion: {
+        amadeus.shopping.hotelOffers.get(params: ["cityCode": "PAR"], onCompletion: {
             data, _ in
             XCTAssertEqual(data?.statusCode, 200)
             XCTAssertNotNil(data)
@@ -34,7 +34,7 @@ class HotelTests: XCTestCase {
     func testHotelOfferByHotel() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.shopping.hotelOfferByHotel.get(data: ["hotelId": "BGMILBGB",
+        amadeus.shopping.hotelOfferByHotel.get(params: ["hotelId": "BGMILBGB",
                                                       "adults": "2",
                                                       "roomQuantity": "1",
                                                       "paymentPolicy": "NONE",
@@ -51,7 +51,7 @@ class HotelTests: XCTestCase {
     func testHotelSentiments() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.eReputation.hotelSentiments.get(data: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
+        amadeus.eReputation.hotelSentiments.get(params: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
                                                 onCompletion: {
                 data, _ in
                 XCTAssertEqual(data?.statusCode, 200)
@@ -67,8 +67,7 @@ class HotelTests: XCTestCase {
 
         let hotelId = "176383FB301E78D430F81A6CB6134EBF801DCC1AE14FC9DCCE84D17C6B519F5B"
 
-        amadeus.shopping.hotelOffer(hotelId: hotelId).get(data: [:],
-                                                          onCompletion: {
+        amadeus.shopping.hotelOffer(hotelId: hotelId).get(onCompletion: {
                                                               data, _ in
                                                               XCTAssertEqual(data?.statusCode, 200)
                                                               XCTAssertNotNil(data)
