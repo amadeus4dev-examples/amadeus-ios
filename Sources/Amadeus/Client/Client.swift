@@ -32,7 +32,7 @@ public class Client {
     }
 
     public func get(path: String, params: [String: String], onCompletion: @escaping AmadeusResponse) {
-        request(verb: "GET", path: path, params: generateGetParameters(data: params), body: "", onCompletion: {
+        request(verb: "GET", path: path, params: generateGetParameters(data: params), body: nil, onCompletion: {
             response, error in
             onCompletion(response, error)
         })
@@ -49,6 +49,13 @@ public class Client {
         }
     }
 
+    public func delete(path: String, params: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
+        request(verb: "DELETE", path: path, params: generateGetParameters(data: params), body: nil, onCompletion: {
+            response, error in
+            onCompletion(response, error)
+        })
+    }
+
     private func prettyPrintRequest(verb: String, url: String, headers: [String: String]) {
         print("\n")
         print("\(verb) \(url)")
@@ -58,7 +65,8 @@ public class Client {
         print("\n")
     }
 
-    private func request(verb: String, path: String, params: String, body: String, onCompletion: @escaping AmadeusResponse) {
+    private func request(verb: String, path: String, params: String, body: String?, onCompletion: @escaping AmadeusResponse) {
+
         accessToken.get(onCompletion: { auth, error in
             let err: ResponseError? = error
 
@@ -73,19 +81,14 @@ public class Client {
                     self.prettyPrintRequest(verb: verb, url: url, headers: headers)
                 }
 
-                if verb == "GET" {
-                    _get(url: url, headers: headers, onCompletion: {
-                        data, err in
-                        onCompletion(data, err)
+                send(verb: verb,
+                        url: url,
+                        headers: headers,
+                        body: body,
+                        onCompletion: {
+                            data, err in
+                            onCompletion(data, err)
                         })
-                }
-
-                if verb == "POST" {
-                    _post(url: url, headers: headers, body: body, onCompletion: {
-                        data, err in
-                        onCompletion(data, err)
-                        })
-                }
             } else {
                 onCompletion(nil, error)
             }

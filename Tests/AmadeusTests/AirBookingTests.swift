@@ -19,6 +19,34 @@ class AirBookingTests: XCTestCase {
         super.tearDown()
     }
 
+    func testFlightOrderRetrieve() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").get(onCompletion: {
+            data, _ in
+            XCTAssertEqual(data?.statusCode, 200)
+            XCTAssertNotNil(data)
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 60) 
+    }
+
+
+    func testFlightOrderDelete() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").delete(onCompletion: {
+            data, _ in
+            XCTAssertEqual(data?.statusCode, 200)
+            XCTAssertNotNil(data)
+            expectation.fulfill()
+        })
+
+        wait(for: [expectation], timeout: 60)
+ 
+    }
+
     func testFlightCreateOrders() {
         let expectation = XCTestExpectation(description: "TimeOut")
 

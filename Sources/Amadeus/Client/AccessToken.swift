@@ -53,7 +53,7 @@ public class AccessToken {
 
         let url = config.baseURL + path
 
-        _post(url: url, headers: headers, body: body, onCompletion: { response, error in
+        send(verb: "POST", url: url, headers: headers, body: body, onCompletion: { response, error in
 
             if let auth = response?.result["access_token"].string {
                 self.access_token = auth
