@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class CheckinLinks {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Returns the checkin links for an airline.
     ///
     ///   ## Example
@@ -31,8 +31,8 @@ public class CheckinLinks {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v2/reference-data/urls/checkin-links", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

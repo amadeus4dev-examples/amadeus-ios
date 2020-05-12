@@ -10,12 +10,12 @@ import Foundation
 public class PointsOfInterest {
     private let client: Client
     public var bySquare: BySquare
-
+    
     public init(client: Client) {
         self.client = client
         bySquare = BySquare(client: client)
     }
-
+    
     /// Returns a list of relevant points of interest near to a given point.
     ///
     ///   ## Example
@@ -36,8 +36,8 @@ public class PointsOfInterest {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/locations/pois", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

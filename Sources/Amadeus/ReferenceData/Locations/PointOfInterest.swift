@@ -10,12 +10,12 @@ import Foundation
 public class PointOfInterest {
     private let client: Client
     private let poiId: String
-
+    
     public init(client: Client, poiId: String) {
         self.client = client
         self.poiId = poiId
     }
-
+    
     /// Retrieve one point of interest by its Id.
     ///
     ///   amadeus.referenceData.locations.pointOfInterest("9CB40CB5D0").get(
@@ -26,8 +26,8 @@ public class PointOfInterest {
     ///    `JSON` object
     public func get(onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/locations/pois/\(poiId)", params: [:], onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }
