@@ -23,9 +23,14 @@ class AirBookingTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").get(onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+            result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
 
@@ -37,9 +42,14 @@ class AirBookingTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").delete(onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+            result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
 
@@ -517,9 +527,14 @@ class AirBookingTests: XCTestCase {
             let body: JSON = try JSON(data: dataFromString!)
 
             amadeus.booking.flightOrders.post(body: body, onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
             })
         } catch _ as NSError {

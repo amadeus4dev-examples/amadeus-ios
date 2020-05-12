@@ -4,57 +4,64 @@ import XCTest
 
 class AirShoppingTests: XCTestCase {
     var amadeus: Amadeus!
-
+    
     override func setUp() {
         super.setUp()
-
+        
         // Avoid 429 error "Network rate limit is exceeded"
         sleep(1)
-
+        
         amadeus = Amadeus(environment: ["logLevel": "debug"])
     }
-
+    
     override func tearDown() {
         amadeus = nil
         super.tearDown()
     }
-
+    
     func testFlightDestinations() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.flightDestinations.get(params: ["origin": "MAD",
-                                                       "maxPrice": "500"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                                         "maxPrice": "500"], onCompletion: {
+                                                            result in
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+                                                            expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
-
+    
+    
     func testFlightOffersSearchGet() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
-                                                       "destinationLocationCode": "BER",
-                                                       "departureDate": "2020-05-16",
-                                                       "returnDate": "2020-05-30",
-                                                       "adults": "2"], onCompletion: {
-                data, _ in
-                //print(data?.data)
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                                         "destinationLocationCode": "BER",
+                                                         "departureDate": "2020-05-16",
+                                                         "returnDate": "2020-05-30",
+                                                         "adults": "2"], onCompletion: {
+                                                            result in
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+                                                            expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
     func testFlightOffersSearchPost() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         let jsonString: String = """
         {
             "currencyCode": "USD",
@@ -120,42 +127,50 @@ class AirShoppingTests: XCTestCase {
             }
         }  
         """
-
+        
         let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
         do {
             let body: JSON = try JSON(data: dataFromString!)
-
+            
             amadeus.shopping.flightOffersSearch.post(body: body, onCompletion: {
-                data, _ in
-                //print(data?.data ?? "")
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
-                                                         })
-
+            })
+            
             wait(for: [expectation], timeout: 60)
-
+            
         } catch _ as NSError {
             assertionFailure("JSON not valid")
         }
     }
-
+    
     func testFlightDates() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.flightDates.get(params: ["origin": "MAD",
-                                                "destination": "BOS"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                                  "destination": "BOS"], onCompletion: {
+                                                    result in
+                                                    switch result {
+                                                    case .success(let response):
+                                                        print(response.data)
+                                                        XCTAssertEqual(response.statusCode, 200)
+                                                    case .failure(let error):
+                                                        fatalError(error.localizedDescription)
+                                                    }
+                                                    expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
     func testFlightOffersPrice() {
-
+        
         let jsonString: String = """
         [{
           "oneWay" : false,
@@ -410,42 +425,52 @@ class AirShoppingTests: XCTestCase {
         }]
         """
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
-
+        
         do {
             let body: JSON = try JSON(data: dataFromString!)
-
+            
             amadeus.shopping.flightOffers.pricing.post(body: body, onCompletion: {
-                                                           data, _ in
-                                                           XCTAssertEqual(data?.statusCode, 200)
-                                                           XCTAssertNotNil(data)
-                                                           expectation.fulfill()
-                                                       })
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
+                expectation.fulfill()
+            })
             wait(for: [expectation], timeout: 60)
-        
+            
         } catch _ as NSError {
             assertionFailure("JSON not valid")
         }
     }
-
+    
     func testSeatMapsGet() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.seatMaps.get(params: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
                                       onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                        result in
+                                        switch result {
+                                        case .success(let response):
+                                            print(response.data)
+                                            XCTAssertEqual(response.statusCode, 200)
+                                        case .failure(let error):
+                                            fatalError(error.localizedDescription)
+                                        }
+                                        expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
-
+    
+    
     func testSeatMapsPost() {
-
+        
         let jsonString: String = """
         {
             "data": [
@@ -583,23 +608,28 @@ class AirShoppingTests: XCTestCase {
         }
         """
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
-
+        
         do {
             let body: JSON = try JSON(data: dataFromString!)
-
+            
             amadeus.shopping.seatMaps.post(body: body, onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
-                })
+            })
             wait(for: [expectation], timeout: 60)
-        
+            
         } catch _ as NSError {
             assertionFailure("JSON not valid")
         }
     }
-
+    
 }

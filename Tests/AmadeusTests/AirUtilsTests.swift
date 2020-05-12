@@ -22,10 +22,15 @@ class AirUtilsTests: XCTestCase {
    func testCheckinLinks() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"], onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+        amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"],
+                                                    onCompletion: { result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
 
@@ -37,12 +42,27 @@ class AirUtilsTests: XCTestCase {
 
         amadeus.referenceData.locations.airports.get(params: ["longitude": "2.55",
                                                             "latitude": "49.0000"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                self.amadeus.next(response: data!, onCompletion: { data, _ in
-                    XCTAssertNotNil(data as Any)
-                    expectation.fulfill()
-            })
+                result in
+                                                                
+                                                                switch result {
+                                                                case .success(let response):
+                                                                    XCTAssertEqual(response.statusCode, 200)
+                                                                    
+                                                                    self.amadeus.next(response: response, onCompletion: { result in
+                                                                        switch result {
+                                                                        case .success(let response):
+                                                                            break
+                                                                        case .failure(let error):
+                                                                            fatalError(error.localizedDescription)
+                                                                        }
+                                                                            expectation.fulfill()
+                                                                    })
+                                                                    
+                                                                case .failure(let error):
+                                                                    fatalError(error.localizedDescription)
+                                                                }
+                
+                
         })
 
         wait(for: [expectation], timeout: 60)
@@ -53,9 +73,14 @@ class AirUtilsTests: XCTestCase {
 
         amadeus.referenceData.locations.get(params: ["subType": "AIRPORT,CITY",
                                                    "keyword": "lon"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
         })
 
@@ -66,9 +91,14 @@ class AirUtilsTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.referenceData.location(locationId: "CMUC").get(params: [:], onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+            result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
 
@@ -79,9 +109,14 @@ class AirUtilsTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.referenceData.airLines.get(params: ["airlineCodes": "BA"], onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+            result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
 
