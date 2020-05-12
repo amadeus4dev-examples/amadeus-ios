@@ -34,9 +34,6 @@ private func process(request: NSMutableURLRequest,
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
         
-        var amadeusResponse: Response?
-        var amadeusError: ResponseError?
-        
         guard let httpResponse = response as? HTTPURLResponse else {
             // no HTTP answer: network problem
             onCompletion(.failure(.returnedError(error!)))
