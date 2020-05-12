@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class BusiestPeriod {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Returns a list of air traffic reports.
     ///
     ///   ## Example
@@ -33,9 +33,10 @@ public class BusiestPeriod {
     /// - Returns:
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v1/travel/analytics/air-traffic/busiest-period", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+        client.get(path: "v1/travel/analytics/air-traffic/busiest-period",
+                   params: params,
+                   onCompletion: { result in
+                    onCompletion(result)
+        })
     }
 }

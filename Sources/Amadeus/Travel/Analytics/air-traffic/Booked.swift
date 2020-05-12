@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class Booked {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Returns a list of air traffic reports based on the number of bookings.
     ///
     ///   ## Example
@@ -33,8 +33,8 @@ public class Booked {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/travel/analytics/air-traffic/booked", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }
