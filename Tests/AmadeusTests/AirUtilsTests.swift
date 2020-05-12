@@ -50,7 +50,7 @@ class AirUtilsTests: XCTestCase {
                                                                     
                                                                     self.amadeus.next(response: response, onCompletion: { result in
                                                                         switch result {
-                                                                        case .success(let response):
+                                                                        case .success(_):
                                                                             break
                                                                         case .failure(let error):
                                                                             fatalError(error.localizedDescription)
