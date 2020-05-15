@@ -2,7 +2,8 @@
 
 [![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-ios.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-ios) ![Platform](https://img.shields.io/badge/platforms-macOS%2010.10%20%7C%20-F28D00.svg) 
 
-Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations and more.
+
+Amadeus has a large set of APIs, and our documentation is here to get you started today. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
 ## Prerequisites
 
@@ -11,8 +12,7 @@ Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locatio
 
 ## Installation
 
-The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift`
-manifest file inside the directory where your project is located and add `amadeus-ios` as dependency:
+The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift` manifest file (located inside the project directory), and add the `amadeus-ios` dependency:
 
 ```swift
     import PackageDescription
@@ -24,13 +24,11 @@ manifest file inside the directory where your project is located and add `amadeu
         ]
     )
 ```
-Then run `swift build` whenever you get prepared.
+Then, run `swift build` when ready.
 
 ## Getting Started
 
-To make your first API call you will need to [register for an Amadeus Developer
-Account](https://developers.amadeus.com/create-account) and [set up your first
-application](https://developers.amadeus.com/my-apps).
+To make your first API call, you will need to [register](https://developers.amadeus.com/register) for an Amadeus Developer account and [set up your first application](https://developers.amadeus.com/my-apps).
 
 ```swift
 import amadeus
@@ -69,20 +67,15 @@ amadeus = Amadeus(
 )
 ```
 
-Alternatively it can be initialized without any parameters if the environment
-variables `AMADEUS_CLIENT_ID` and `AMADEUS_CLIENT_SECRET` are present.
+Alternatively, it can be initialized without any parameters if the environment variables `AMADEUS_CLIENT_ID` and `AMADEUS_CLIENT_SECRET` are present.
 
 ```swift
  var amadeus = Amadeus()
- ```
+```
 
-Your credentials can be found on the [Amadeus
-dashboard](https://developers.amadeus.com/my-apps). [Sign
-up](https://developers.amadeus.com/create-account) for an account today.
+Your credentials can be found on the [Amadeus dashboard](https://developers.amadeus.com/my-apps).
 
-
-By default the environment for the SDK is the ``test`` environment. To switch
-to a production (paid-for) environment please switch the hostname as follows:
+By default, the SDK environment is set to `test` environment. To switch to `production` (pay-as-you-go) environment, please switch the hostname as follows:
 
 ```swift
  var amadeus = Amadeus(environment: ["hostname": "production"])
@@ -90,9 +83,7 @@ to a production (paid-for) environment please switch the hostname as follows:
 
 ## Making API calls
 
-This library conveniently maps every API path to a similar path.
-
-For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
+This library conveniently maps every API path to a similar path. For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
 
 ```swift
   amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"], onCompletion: {
@@ -101,10 +92,7 @@ For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
    })
 ```
 
-Similarly, to select a resource by ID, you can pass in the ID to the
-singular path.
-
-For example, ``GET /v2/shopping/hotel-offers/XZY`` would be:
+Similarly, to select a resource by ID, you can pass in the ID to the singular path. For example, `GET /v2/shopping/hotel-offers/XZY` would be:
 
 ```swift
   amadeus.shopping.hotelOffer(hotelId: "XZY").get(params:[:], 
@@ -113,7 +101,7 @@ For example, ``GET /v2/shopping/hotel-offers/XZY`` would be:
                ...
     })
 ```
-You can make any arbitrary API call as well directly with the `.get` method:
+You can make any arbitrary API call directly with the `.get` method as well:
 
 ```swift
   amadeus.get(path:'/v2/reference-data/urls/checkin-links',
@@ -123,22 +111,23 @@ You can make any arbitrary API call as well directly with the `.get` method:
     })
 ```
 
-Or with ``POST`` using the ``.post`` method:
+Or, with `POST` using the `.post` method:
+
+```swift
+  amadeus.post(path: '/v2/shopping/flight-offers', body: body, params: [:],
+    onCompletion: {
+            (response, error) in
+              ...
+      })
+```
 
 ## Response
 
-Responses are based on `swift closures`.
-[Closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html) are
-self-contained blocks of functionality that can be passed around and used in
-your code.
+Responses are based on [swift closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html), that are self-contained blocks of functionality that can be passed around and used in your code.
 
-Every API call returns a `OnCompletion` closure that either resolves or
-rejects. Every resolved API call returns a `JSON` object.
+Every API call returns a `OnCompletion` closure that either resolves or rejects. Every resolved API call returns a `JSON` object.
 
-If the API call contained a JSON response it will parse the JSON into the
-``.result`` attribute.  If this data also contains a ``data`` key, it will make
-that available as the ``.data`` attribute. The raw body of the response is
-always available as the ``.body`` attribute.
+If the API call contained a JSON response, it will parse the JSON into `.result` attribute.  If it also contains a `data` key, that is made available in `.data` attribute. The raw body of the response is always available in `.body` attribute.
 
 ```swift
 amadeus.shopping.flightDestinations.get(params: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
@@ -154,8 +143,7 @@ amadeus.shopping.flightDestinations.get(params: ["origin": "MAD", "maxPrice": "1
 ## Pagination
 
 
-If an API endpoint supports pagination, the other pages are available
-under the ``.next``, ``.previous``, ``.last`` and ``.first`` methods.
+If an API endpoint supports pagination, the other pages are available under the `.next`, `.previous`, `.last` and `.first` methods.
 
 
 ```swift
@@ -168,7 +156,7 @@ amadeus.referenceData.locations.airports.get(params:["longitude": "2.55",
 })
 ```
 
-If a page is not available, the method will return ``null``.
+If a page is not available, the method will return `null`.
 
 
 ## Logging & Debugging
@@ -338,8 +326,7 @@ amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
 
 ## Development & Contributing
 
-Want to contribute? Read our [Contributors Guide](.github/CONTRIBUTING.md) for
-guidance on installing and running this code in a development environment.
+Want to contribute? Read our [Contributors Guide](.github/CONTRIBUTING.md) for guidance on installing and running this code in a development environment.
 
 ## License
 
@@ -347,10 +334,7 @@ This library is released under the [MIT License](LICENSE).
 
 ## Help
 
-Our [developer support team](https://developers.amadeus.com/support) is here to
-help you. You can find us on
-[StackOverflow](https://stackoverflow.com/questions/tagged/amadeus) and
-[email](mailto:developers@amadeus.com).
+Our [developer support team](https://developers.amadeus.com/support) is here to help you. You can also find us on [StackOverflow](https://stackoverflow.com/questions/tagged/amadeus) and [email](mailto:developers@amadeus.com).
 
 [travis]: http://travis-ci.org/amadeus4dev/amadeus-ios
 [support]: http://developers.amadeus.com/support
