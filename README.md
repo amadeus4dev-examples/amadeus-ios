@@ -3,7 +3,7 @@
 [![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-ios.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-ios) ![Platform](https://img.shields.io/badge/platforms-macOS%2010.10%20%7C%20-F28D00.svg) 
 
 
-Amadeus has a large set of APIs, and our documentation is here to get you started today. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
+Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
 ## Prerequisites
 
@@ -101,7 +101,7 @@ Similarly, to select a resource by ID, you can pass in the ID to the singular pa
                ...
     })
 ```
-You can make any arbitrary API call directly with the `.get` method as well:
+You can make any arbitrary `GET` API call directly with the `.get` method as well:
 
 ```swift
   amadeus.get(path:'/v2/reference-data/urls/checkin-links',
@@ -127,7 +127,7 @@ Responses are based on [swift closures](https://docs.swift.org/swift-book/Langua
 
 Every API call returns a `OnCompletion` closure that either resolves or rejects. Every resolved API call returns a `JSON` object.
 
-If the API call contained a JSON response, it will parse the JSON into `.result` attribute.  If it also contains a `data` key, that is made available in `.data` attribute. The raw body of the response is always available in `.body` attribute.
+If the API call contained a JSON response, the SDK will parse that JSON into `.result` attribute.  If it contains a `data` key, that is made available in `.data` attribute. The raw body of the response is always available in `.body` attribute.
 
 ```swift
 amadeus.shopping.flightDestinations.get(params: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
@@ -323,10 +323,6 @@ amadeus.travel.tripParserJobs.result(jobId: response.data['id']).get(onCompletio
 amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
                                         onCompletion: { ... })
 ```
-
-## Development & Contributing
-
-Want to contribute? Read our [Contributors Guide](.github/CONTRIBUTING.md) for guidance on installing and running this code in a development environment.
 
 ## License
 
