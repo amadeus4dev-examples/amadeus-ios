@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class HotelOffers {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Find the list of hotels for a dedicated city.
     ///
     ///   ## Example
@@ -31,8 +31,8 @@ public class HotelOffers {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v2/shopping/hotel-offers", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

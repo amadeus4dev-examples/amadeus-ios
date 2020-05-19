@@ -10,12 +10,12 @@ import Foundation
 public class Location {
     private let client: Client
     private let locationId: String
-
+    
     public init(client: Client, locationId: String) {
         self.client = client
         self.locationId = locationId
     }
-
+    
     /// Returns a list of airports and cities matching a given keyword.
     ///
     ///   ## Example
@@ -35,8 +35,8 @@ public class Location {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/locations/\(locationId)", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

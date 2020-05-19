@@ -30,14 +30,13 @@ public class AccessToken {
     ///
     /// - Returns:
     ///     access_token: `String` the client access token
-    public func get(onCompletion: @escaping (String?, ResponseError?) -> Void) {
+    public func get(onCompletion: @escaping (Result<String, ResponseError>) -> Void) {
         if needRefresh() {
-            fetchAuthToken(onCompletion: {
-                access_token, error in
-                onCompletion(access_token, error)
+            fetchAuthToken(onCompletion: { result in
+                onCompletion(result)
             })
         } else {
-            onCompletion(access_token, nil)
+            onCompletion(.success(access_token))
         }
     }
 
@@ -47,22 +46,27 @@ public class AccessToken {
     }
 
     /// Fetches a new Access Token using the credentials from the client.
-    private func fetchAuthToken(onCompletion: @escaping (String?, ResponseError?) -> Void) {
+    private func fetchAuthToken(onCompletion: @escaping (Result<String, ResponseError>) -> Void) {
         let body = "grant_type=" + grant_type + "&client_id=" + client_id + "&client_secret=" + client_secret
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
 
         let url = config.baseURL + path
 
-        send(verb: "POST", url: url, headers: headers, body: body, onCompletion: { response, error in
-
-            if let auth = response?.result["access_token"].string {
+        send(verb: "POST", url: url, headers: headers, body: body, onCompletion: { result in
+            
+            switch result {
+            case .success(let response):
+                guard let auth = response.result["access_token"].string else {
+                    onCompletion(.failure(.authenticationError))
+                    return
+                }
                 self.access_token = auth
                 self.expires_time = self.expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
-                onCompletion(auth, nil)
-            } else {
+                onCompletion(.success(auth))
+            case .failure(let error):
                 self.access_token = "error"
                 self.expires_time = 0
-                onCompletion(nil, error)
+                onCompletion(.failure(error))
             }
         })
     }

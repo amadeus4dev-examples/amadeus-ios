@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class FlightDestinations {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Find the cheapest destinations where you can fly to.
     ///
     ///   ## Example
@@ -33,8 +33,8 @@ public class FlightDestinations {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/shopping/flight-destinations", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

@@ -9,17 +9,17 @@ import Foundation
 /// ```
 public class TripPurpose {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
-   /// Predicts traveler purpose, Business or Leisure,
-   /// with the probability in the context of search & shopping
-   public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
+    
+    /// Predicts traveler purpose, Business or Leisure,
+    /// with the probability in the context of search & shopping
+    public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/travel/predictions/trip-purpose", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

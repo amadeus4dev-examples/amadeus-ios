@@ -4,83 +4,100 @@ import SwiftyJSON
 
 class HotelTests: XCTestCase {
     var amadeus: Amadeus!
-
+    
     override func setUp() {
         super.setUp()
-
+        
         // Avoid 429 error "Network rate limit is exceeded
         sleep(1)
         amadeus = Amadeus(environment: ["logLevel": "debug"])
     }
-
+    
     override func tearDown() {
         amadeus = nil
         super.tearDown()
     }
-
+    
     func testHotelOffers() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.hotelOffers.get(params: ["cityCode": "PAR"], onCompletion: {
-            data, _ in
-            XCTAssertEqual(data?.statusCode, 200)
-            XCTAssertNotNil(data)
+            result in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
             expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
     func testHotelOfferByHotel() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.shopping.hotelOfferByHotel.get(params: ["hotelId": "BGMILBGB",
-                                                      "adults": "2",
-                                                      "roomQuantity": "1",
-                                                      "paymentPolicy": "NONE",
-                                                      "view": "FULL_ALL_IMAGES"], onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                                        "adults": "2",
+                                                        "roomQuantity": "1",
+                                                        "paymentPolicy": "NONE",
+                                                        "view": "FULL_ALL_IMAGES"], onCompletion: { result in
+                                                            
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+                                                            expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
     func testHotelSentiments() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         amadeus.eReputation.hotelSentiments.get(params: ["hotelIds": "TELONMFS,ADNYCCTB,XXXYYY01"],
                                                 onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
-                expectation.fulfill()
+                                                    result in
+                                                    switch result {
+                                                    case .success(let response):
+                                                        XCTAssertEqual(response.statusCode, 200)
+                                                    case .failure(let error):
+                                                        fatalError(error.localizedDescription)
+                                                    }
+                                                    expectation.fulfill()
         })
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
     func testHotelOffer() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         let hotelId = "176383FB301E78D430F81A6CB6134EBF801DCC1AE14FC9DCCE84D17C6B519F5B"
-
-        amadeus.shopping.hotelOffer(hotelId: hotelId).get(onCompletion: {
-                                                              data, _ in
-                                                              XCTAssertEqual(data?.statusCode, 200)
-                                                              XCTAssertNotNil(data)
-                                                              expectation.fulfill()
-                                                          })
-
+        
+        amadeus.shopping.hotelOffer(hotelId: hotelId).get(onCompletion: { result in
+            switch result {
+            case .success(let response):
+                print(response.data)
+                XCTAssertEqual(response.statusCode, 200)
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        })
+        
         wait(for: [expectation], timeout: 60)
     }
-
-
+    
+    
     func testHotelBookings() {
         let expectation = XCTestExpectation(description: "TimeOut")
-
+        
         let jsonString: String = """
         {
           "data": {
@@ -111,23 +128,29 @@ class HotelTests: XCTestCase {
           }
         }
         """
-            
+        
         let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
-
+        
         do {
             let body: JSON = try JSON(data: dataFromString!)
-
+            
             amadeus.booking.hotelBookings.post(body: body, onCompletion: {
-                                                   data, error in
-                                                   XCTAssertEqual(data?.statusCode, 201)
-                                                   XCTAssertNotNil(data)
-                                                   expectation.fulfill()
-                                               })
+                result in
+                
+                switch result {
+                case .success(let response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
+                
+                expectation.fulfill()
+            })
         } catch _ as NSError {
             assertionFailure("JSON not valid")
         }
-
+        
         wait(for: [expectation], timeout: 60)
     }
-
+    
 }

@@ -9,11 +9,11 @@ import Foundation
 /// ```
 public class BySquare {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Returns a list of relevant points of interest
     /// around a defined square (4 points).
     ///
@@ -34,9 +34,9 @@ public class BySquare {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/locations/pois/by-square", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
-
+    
 }

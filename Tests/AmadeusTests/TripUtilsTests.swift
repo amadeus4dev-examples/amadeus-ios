@@ -37,9 +37,14 @@ class TripUtilsTests: XCTestCase {
 
              amadeus.travel.tripParserJobs.post(body: body,
                                                 onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
             })
         } catch _ as NSError {
@@ -53,9 +58,14 @@ class TripUtilsTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.travel.tripParserJobs.status(jobId: "XXX").get(onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
         })
 
@@ -66,9 +76,14 @@ class TripUtilsTests: XCTestCase {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.travel.tripParserJobs.result(jobId: "XXX").get(onCompletion: {
-                data, _ in
-                XCTAssertEqual(data?.statusCode, 200)
-                XCTAssertNotNil(data)
+                result in
+                switch result {
+                case .success(let response):
+                    print(response.data)
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
                 expectation.fulfill()
         })
 

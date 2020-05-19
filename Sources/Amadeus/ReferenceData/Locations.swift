@@ -9,20 +9,20 @@ import Foundation
 /// ```
 public class Locations {
     private let client: Client
-
+    
     public let airports: Airports
     public let pointsOfInterest: PointsOfInterest
-
+    
     public init(client: Client) {
         self.client = client
         airports = Airports(client: client)
         pointsOfInterest = PointsOfInterest(client: client)
     }
-
+    
     public func pointOfInterest(poiId: String) -> PointOfInterest {
         return PointOfInterest(client: client, poiId: poiId)
     }
-
+    
     /// Returns a list of airports and cities matching a given keyword.
     ///
     ///   ## Example
@@ -42,8 +42,8 @@ public class Locations {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/locations", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

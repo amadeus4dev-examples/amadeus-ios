@@ -10,11 +10,11 @@ import SwiftyJSON
 /// ```
 public class AirLines {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Returns the airline name and code.
     ///
     ///   ## Example
@@ -32,8 +32,8 @@ public class AirLines {
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v1/reference-data/airlines", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

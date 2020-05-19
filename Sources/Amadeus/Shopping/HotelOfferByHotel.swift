@@ -9,15 +9,15 @@ import Foundation
 /// ```
 public class HotelOfferByHotel {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v2/shopping/hotel-offers/by-hotel", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }

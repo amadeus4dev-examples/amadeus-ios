@@ -3,11 +3,11 @@ import SwiftyJSON
 
 public class FlightOffersSearch {
     private var client: Client
-
+    
     public init(client: Client) {
         self.client = client
     }
-
+    
     /// Get the cheapest flights on a given journey
     ///
     ///   ## Example
@@ -40,11 +40,11 @@ public class FlightOffersSearch {
     ///
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
         client.get(path: "v2/shopping/flight-offers", params: params, onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
-
+    
     /// Get the cheapest flights on a given journey.
     ///
     ///   amadeus.shopping.flightOffersSearch.put(
@@ -58,8 +58,8 @@ public class FlightOffersSearch {
     ///    `JSON` object
     public func post(body: JSON, onCompletion: @escaping AmadeusResponse) {
         client.post(path: "/v2/shopping/flight-offers", body: body, params: [:], onCompletion: {
-            response, error in
-            onCompletion(response, error)
-                    })
+            result in
+            onCompletion(result)
+        })
     }
 }
