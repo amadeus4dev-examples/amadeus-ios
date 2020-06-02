@@ -53,6 +53,10 @@ amadeus.referenceData.urls.checkinLinks.get(
 )
 ```
 
+Examples
+--------------------------
+You can find all the endpoints in self-contained [code examples](https://github.com/amadeus4dev/amadeus-code-examples).
+
 ## Initialization
 
 The client can be initialized directly.
