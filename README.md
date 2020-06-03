@@ -41,14 +41,15 @@ amadeus = Amadeus(
 )
 
 amadeus.referenceData.urls.checkinLinks.get(
-    params: ["airlineCode": "BA"],
-    onCompletion: {
-       (result, error) in
-       if error == nil {
-         print("Data ", result?.data)
-       }
-    }
-)
+        params: ["airlineCode": "BA"],
+        onCompletion: { result in
+            switch result {
+              case .success(let response):
+                 print(response.data)
+              case .failure(let error):
+                 print(error.localizedDescription)
+           }
+})
 ```
 
 Examples
@@ -90,27 +91,28 @@ By default, the SDK environment is set to `test` environment. To switch to `prod
 This library conveniently maps every API path to a similar path. For example, `GET /v2/reference-data/urls/checkin-links?airline=BA` would be:
 
 ```swift
-  amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"], onCompletion: {
-     (data,error) in 
-     ...
-   })
+     amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"],
+                                                 onCompletion: { result in
+         switch result {
+             case .success(let response):
+                // do something
+             case .failure(let error):
+                // do something else
+            }
 ```
 
 Similarly, to select a resource by ID, you can pass in the ID to the singular path. For example, `GET /v2/shopping/hotel-offers/XZY` would be:
 
 ```swift
-  amadeus.shopping.hotelOffer(hotelId: "XZY").get(params:[:], 
-            onCompletion: {
-               (data,error) in 
-               ...
-    })
+  amadeus.shopping.hotelOffer(hotelId: "XZY").get(onCompletion: { result in 
 ```
+
 You can make any arbitrary `GET` API call directly with the `.get` method as well:
 
 ```swift
   amadeus.get(path:'/v2/reference-data/urls/checkin-links',
               params: ["airlineCode":"BA"], onCompletion: {
-                (data,error) in
+                result in
                  ....
     })
 ```
@@ -120,27 +122,37 @@ Or, with `POST` using the `.post` method:
 ```swift
   amadeus.post(path: '/v2/shopping/flight-offers', body: body, params: [:],
     onCompletion: {
-            (response, error) in
+            result in
               ...
       })
 ```
 
 ## Response
 
-Responses are based on [swift closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html), that are self-contained blocks of functionality that can be passed around and used in your code.
+Responses are based on [swift
+closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html), that
+are self-contained blocks of functionality that can be passed around and used
+in your code.
 
-Every API call returns a `OnCompletion` closure that either resolves or rejects. Every resolved API call returns a `JSON` object.
+Every API call response is handled by the `OnCompletion` closure which returns
+a [Result](https://developer.apple.com/documentation/swift/result) value that
+represents either a success, which contains the `JSON` object, or a failure,
+containing the error.
 
-If the API call contained a JSON response, the SDK will parse that JSON into `.result` attribute.  If it contains a `data` key, that is made available in `.data` attribute. The raw body of the response is always available in `.body` attribute.
+If the API call contained a JSON response, the SDK will parse that JSON into
+`.result` attribute.  If it contains a `data` key, that is made available in
+`.data` attribute. The raw body of the response is always available in `.body`
+attribute.
 
 ```swift
-amadeus.shopping.flightDestinations.get(params: ["origin": "MAD", "maxPrice": "10000"], onCompletion: {
-    result,error in
-
-      print(result.body)       // => The raw response, as a string
-      print(result.data)       // => JSON data field extracted from the JSON
-      print(result.result)     // => The body parsed as JSON, if the result was parsable
-      print(result.statusCode) // => HTTP Status code
+amadeus.shopping.flightDestinations.get(params: ["origin": "NYC", "maxPrice": "10000"],
+    onCompletion: { result in
+       switch result {
+           case .success(let response):
+                print(response.body)       // => The raw response, as a string
+                print(response.data)       // => JSON data field extracted from the JSON
+                print(response.result)     // => The body parsed as JSON, if the result was parsable
+                print(response.statusCode) // => HTTP Status code
 })
 ```
 
@@ -152,11 +164,14 @@ If an API endpoint supports pagination, the other pages are available under the 
 
 ```swift
 amadeus.referenceData.locations.airports.get(params:["longitude": "2.55",
-                                                   "latitude": "49.0000"], onCompletion: {
-    (data, error) in
-      amadeus.next(response: data!, onCompletion: {
-        (data, err) in
-            ....
+                                                     "latitude": "49.0000"], 
+                                             onCompletion: { result in
+    switch result {
+        case .success(let response):
+            amadeus.next(response: response, onCompletion: { result in
+                switch result {
+                    case .success(let response):
+                       // do something
 })
 ```
 
