@@ -319,6 +319,22 @@ amadeus.referenceData.locations.pointsOfInterest.bySquare.get(params: ["north": 
 amadeus.referenceData.locations.pointOfInterest(poiId: "8DA7B6CDCA").get(onCompletion: { ... })
 
 
+// Safe Place API
+amadeus.safety.safetyRatedLocations.get(params: ["latitude": "41.397158",
+                                                 "longitude": "2.160873",
+                                                 "radius": "2"], onCompletion: { ... })
+
+// Safe Place API By Square
+amadeus.safety.safetyRatedLocations.bySquare.get(params: ["north": "41.397158",
+                                                          "west": "2.160873",
+                                                          "south": "41.394582",
+                                                          "east": "2.177181"],
+                                                        onCompletion: { ... })
+
+// Safe Place API by Id
+amadeus.safety.safetyRatedLocation(locationId: "Q930402753").get(onCompletion: { ... })
+
+
 // Trip APIs
 
 // Trip Purpose Prediction
