@@ -11,6 +11,7 @@ public class ReferenceData {
     public let airLines: AirLines
     public let urls: Urls
     public let locations: Locations
+    public let recommendedLocations: RecommendedLocations
     private let client: Client
 
     public init(client: Client) {
@@ -18,6 +19,7 @@ public class ReferenceData {
         airLines = AirLines(client: client)
         urls = Urls(client: client)
         locations = Locations(client: client)
+        recommendedLocations = RecommendedLocations(client: client)
     }
 
     public func location(locationId: String) -> Location {

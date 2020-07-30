@@ -252,6 +252,9 @@ amadeus.travel.predictions.flightDelay.get(params: ["originLocationCode": "NCE",
 // Flight Choice Prediction
 amadeus.shopping.flightOffers.prediction.post(body: jsonBody, onCompletion: { ... })
 
+// Travel Recommendations
+amadeus.referenceData.recommendedLocations.get(params: ["cityCodes": "MAD,BER"], onCompletion: { ... })
+
 // Flight Checkin Links
 amadeus.referenceData.urls.checkinLinks.get(params: ["airlineCode": "BA"], onCompletion: { ... })
 
