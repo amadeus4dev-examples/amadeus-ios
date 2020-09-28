@@ -10,6 +10,7 @@ public class Amadeus {
     public let eReputation: EReputation
     public let referenceData: ReferenceData
     public let safety: Safety
+    public let schedule: Schedule
     
     public init(client_id: String, client_secret: String, environment: [String: Any]) {
         client = Client(client_id: client_id,
@@ -24,6 +25,7 @@ public class Amadeus {
         eReputation = EReputation(client: client)
         referenceData = ReferenceData(client: client)
         safety = Safety(client: client)
+        schedule = Schedule(client: client)
     }
     
     public convenience init() {
