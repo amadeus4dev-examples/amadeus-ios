@@ -227,6 +227,12 @@ amadeus.shopping.flightDestinations.get(params: ["origin": "BOS",
 amadeus.shopping.flightDates.get(params:["origin": "LHR",
                                        "destination": "PAR"], onCompletion: { ... })
 
+
+// On demand flight status
+amadeus.schedule.flights.get(params:["carrierCode":"AZ",
+                                     "flightNumber":"319",
+                                     "scheduledDepartureDate":"2021-03-13"], onCompletion: { ... })
+
 // Seatmap Display
 amadeus.shopping.seatMaps.get(params: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
                               onCompletion: { ... })
