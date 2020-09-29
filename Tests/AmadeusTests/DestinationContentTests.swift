@@ -19,6 +19,66 @@ class DestinationContentTests: XCTestCase {
         super.tearDown()
     }
 
+    func testActivitiesSearch() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        amadeus.shopping.activities.get(params: ["latitude": "41.397158",
+                                                 "longitude": "2.160873"], 
+                                        onCompletion: {
+                                                            result in
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+
+                                                            expectation.fulfill()
+         })
+
+        wait(for: [expectation], timeout: 60)
+    }
+
+    func testActivitiesBySquare() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+         amadeus.shopping.activities.bySquare.get(params: ["north": "41.397158",
+                                                           "west": "2.160873",
+                                                           "south": "41.394582",
+                                                           "east": "2.177181"], onCompletion: {
+                                                            result in
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+
+                                                            expectation.fulfill()
+         })
+
+        wait(for: [expectation], timeout: 60)
+ 
+    }
+    
+    func testActivityRetrieve() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        amadeus.shopping.activity(activityId: "56777").get(onCompletion: {
+                                                            result in
+                                                            switch result {
+                                                            case .success(let response):
+                                                                XCTAssertEqual(response.statusCode, 200)
+                                                            case .failure(let error):
+                                                                fatalError(error.localizedDescription)
+                                                            }
+
+                                                            expectation.fulfill()
+         })
+
+        wait(for: [expectation], timeout: 60)
+    }
+ 
      func testSafePlaceSearch() {
         let expectation = XCTestExpectation(description: "TimeOut")
         
@@ -67,7 +127,6 @@ class DestinationContentTests: XCTestCase {
                                                             result in
                                                             switch result {
                                                             case .success(let response):
-                                                                print(response.data)
                                                                 XCTAssertEqual(response.statusCode, 200)
                                                             case .failure(let error):
                                                                 fatalError(error.localizedDescription)

@@ -344,6 +344,24 @@ amadeus.safety.safetyRatedLocations.bySquare.get(params: ["north": "41.397158",
 amadeus.safety.safetyRatedLocation(locationId: "Q930402753").get(onCompletion: { ... })
 
 
+// Tours and Activities
+amadeus.shopping.activities.get(params: ["latitude": "41.397158",
+                                         "longitude": "2.160873"], 
+                                        onCompletion: { ... })
+
+
+// Tours and Activities by Square
+amadeus.shopping.activities.bySquare.get(params: ["north": "41.397158",
+                                                  "west": "2.160873",
+                                                  "south": "41.394582",
+                                                  "east": "2.177181"],
+                                                  onCompletion: { ... })
+
+
+// Tours and Activities by Id
+amadeus.shopping.activity(activityId: "56777").get(onCompletion: { ... })
+
+
 // Trip APIs
 
 // Trip Purpose Prediction

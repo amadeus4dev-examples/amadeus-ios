@@ -15,6 +15,8 @@ public class Shopping {
     public let seatMaps: SeatMaps
     public let hotelOffers: HotelOffers
     public let hotelOfferByHotel: HotelOfferByHotel
+    public let activities: Activities
+
     private let client: Client
 
     public init(client: Client) {
@@ -25,10 +27,16 @@ public class Shopping {
         seatMaps = SeatMaps(client: client)
         hotelOffers = HotelOffers(client: client)
         hotelOfferByHotel = HotelOfferByHotel(client: client)
+        activities = Activities(client: client)
         self.client = client
     }
 
     public func hotelOffer(hotelId: String) -> HotelOffer {
         return HotelOffer(client: client, hotelId: hotelId)
     }
+
+    public func activity(activityId: String) -> Activity {
+        return Activity(client: client, activityId: activityId)
+    }
+ 
 }
