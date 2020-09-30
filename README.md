@@ -20,7 +20,7 @@ The SDK can be installed via [Swift Package Manager](https://swift.org/package-m
     let package = Package(
         name: "YOUR_PROJECT_NAME",
         dependencies: [
-            .package(url: "https://github.com/amadeus4dev/amadeus-ios.git", from: "1.1.0"),
+            .package(url: "https://github.com/amadeus4dev/amadeus-ios.git", from: "1.2.0"),
         ]
     )
 ```

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.2.0) (2020-09-30)
+
+- Add On Demand Flight Status API
+- Add Tours and Activities API
+
 ## [1.1.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.1.0) (2020-07-30)
 
 - Add Travel Recommendations API
