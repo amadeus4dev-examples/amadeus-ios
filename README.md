@@ -239,6 +239,12 @@ amadeus.shopping.seatMaps.get(params: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fA
 
 amadeus.shopping.seatMaps.post(body: body, onCompletion: { ... })
 
+// Flight Price Analysis
+amadeus.analytics.itineraryPriceMetrics.get(params: ["originIataCode": "MAD",
+                                                     "destinationIataCode": "CDG",
+                                                     "departureDate": "2021-01-15"],
+                                            onCompletion: { ... })
+
 // Airport On-Time Performance
 amadeus.airport.predictions.onTime.get(params: ["airportCode": "JFK"], onCompletion: { ... })
 

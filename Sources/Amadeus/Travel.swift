@@ -8,12 +8,12 @@ import Foundation
 /// amadeus.travel
 /// ```
 public class Travel {
-    public let analytics: Analytics
+    public let analytics: TravelAnalytics
     public let predictions: Predictions
     public let tripParserJobs: TripParserJobs
 
     public init(client: Client) {
-        analytics = Analytics(client: client)
+        analytics = TravelAnalytics(client: client)
         predictions = Predictions(client: client)
         tripParserJobs = TripParserJobs(client: client)
     }

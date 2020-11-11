@@ -7,7 +7,7 @@ import Foundation
 /// let amadeus = Amadeus(client_id, client_secret)
 /// amadeus.travel.analytics
 /// ```
-public class Analytics {
+public class TravelAnalytics {
     public let airTraffic: AirTraffic
 
     public init(client: Client) {
