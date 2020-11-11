@@ -11,6 +11,7 @@ public class Amadeus {
     public let referenceData: ReferenceData
     public let safety: Safety
     public let schedule: Schedule
+    public let analytics: Analytics
     
     public init(client_id: String, client_secret: String, environment: [String: Any]) {
         client = Client(client_id: client_id,
@@ -26,6 +27,7 @@ public class Amadeus {
         referenceData = ReferenceData(client: client)
         safety = Safety(client: client)
         schedule = Schedule(client: client)
+        analytics = Analytics(client: client)
     }
     
     public convenience init() {

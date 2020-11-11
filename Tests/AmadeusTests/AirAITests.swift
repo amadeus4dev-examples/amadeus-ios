@@ -19,11 +19,33 @@ class AirAITests: XCTestCase {
         super.tearDown()
     }
 
+    func testFlightPriceAnalysis() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+
+        amadeus.analytics.itineraryPriceMetrics.get(params: ["originIataCode": "MAD",
+                                                             "destinationIataCode": "CDG",
+                                                             "departureDate": "2021-01-15"],
+                                                    onCompletion: { result in
+                switch result {
+                case let .success(response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case let .failure(error):
+                    fatalError(error.localizedDescription)
+                }
+
+                expectation.fulfill()
+
+        })
+
+        wait(for: [expectation], timeout: 60)
+    }
+    
     func testRecommendedLocations() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         amadeus.referenceData.recommendedLocations.get(params: ["cityCodes": "MAD",
-                                                                "travelerCountryCode": "FR"], onCompletion: { result in
+                                                                "travelerCountryCode": "FR"],
+                                                       onCompletion: { result in
 
                 switch result {
                 case let .success(response):
