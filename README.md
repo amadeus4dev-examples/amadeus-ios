@@ -199,8 +199,8 @@ amadeus = Amadeus(
 // Fligh Offers Search
 amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                "destinationLocationCode": "BER",
-                                               "departureDate": "2020-05-16",
-                                               "returnDate": "2020-05-30",
+                                               "departureDate": "2021-04-01",
+                                               "returnDate": "2021-04-08",
                                                "adults": "2"], onCompletion: { ... })
 
 amadeus.shopping.flightOffersSearch.post(body: jsonBody, onCompletion: { ... })
@@ -373,9 +373,9 @@ amadeus.shopping.activity(activityId: "56777").get(onCompletion: { ... })
 // Trip Purpose Prediction
 amadeus.travel.predictions.tripPurpose.get(params: ["originLocationCode": "NYC",
                                                   "destinationLocationCode": "MAD",
-                                                  "departureDate":"2020-08-01",
-                                                  "returnDate":"2020-08-12",
-                                                  "searchDate":"2020-06-11"],
+                                                  "departureDate":"2021-04-01",
+                                                  "returnDate":"2021-04-08",
+                                                  "searchDate":"2021-03-11"],
                                                   onCompletion: { ... })
 
 // Trip Parser Jobs
