@@ -41,12 +41,11 @@ class AirBookingTests: XCTestCase {
     func testFlightOrderDelete() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
-        amadeus.booking.flightOrder(flightOrderId: "eJzTd9f3NjIJdzUGAAp%2fAiY=").delete(onCompletion: {
+        amadeus.booking.flightOrder(flightOrderId: "eJzTd9cPCjX2Mg8HAAs1Alg%3D").delete(onCompletion: {
             result in
             switch result {
             case .success(let response):
-                print(response.data)
-                XCTAssertEqual(response.statusCode, 200)
+                XCTAssertEqual(response.statusCode, 204)
             case .failure(let error):
                 fatalError(error.localizedDescription)
             }
