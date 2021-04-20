@@ -31,7 +31,7 @@ Then, run `swift build` when ready.
 To make your first API call, you will need to [register](https://developers.amadeus.com/register) for an Amadeus Developer account and [set up your first application](https://developers.amadeus.com/my-apps).
 
 ```swift
-import amadeus
+import Amadeus
 
 var amadeus: Amadeus!
 
@@ -61,7 +61,7 @@ You can find all the endpoints in self-contained [code examples](https://github.
 The client can be initialized directly.
 
 ```swift
-import amadeus
+import Amadeus
 
 // Initialize using parameters
 var amadeus: Amadeus!
