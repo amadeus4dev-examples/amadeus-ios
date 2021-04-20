@@ -2,7 +2,7 @@ import Foundation
 
 public class Configuration {
     public var logLevel = "silent"
-    public var host = "test.api.amadeus.com"
+    public var hostname = "test.api.amadeus.com"
     public var ssl = true
     public var port = 443
     public var customAppId = "amadeus-swift-sdk"
@@ -10,7 +10,7 @@ public class Configuration {
     public var baseURL = ""
 
     public init(environment: [String: Any]) {
-        setHost(environment: environment)
+        setHostname(environment: environment)
         setLogLevel(environment: environment)
         setSsl(environment: environment)
         setPort(environment: environment)
@@ -26,12 +26,18 @@ public class Configuration {
             prot = "https://"
         }
 
-        baseURL = prot + host + "/"
+        baseURL = prot + hostname + "/"
     }
 
-    private func setHost(environment: [String: Any]) {
-        if let host = environment["host", default: host] as? String {
-            self.host = host
+    private func setHostname(environment: [String: Any]) {
+        if let host = environment["hostname", default: hostname] as? String {
+            if host == "production" {
+                self.hostname = "api.amadeus.com"
+            } else if host == "testing" {
+                self.hostname = "test.api.amadeus.com"
+            } else {
+                self.hostname = host
+            }
         }
     }
 
