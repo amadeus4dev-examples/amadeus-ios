@@ -12,7 +12,7 @@ class CoreTests: XCTestCase {
     func testConfiguration() {
         let conf = Configuration(environment: [:])
         XCTAssertEqual(conf.logLevel, "silent")
-        XCTAssertEqual(conf.host, "test.api.amadeus.com")
+        XCTAssertEqual(conf.hostname, "test.api.amadeus.com")
         XCTAssertTrue(conf.ssl)
         XCTAssertEqual(conf.port, 443)
         XCTAssertEqual(conf.customAppId, "amadeus-swift-sdk")
@@ -25,13 +25,28 @@ class CoreTests: XCTestCase {
     }
 
     func testBuildCustomHostname() {
-        let conf = Configuration(environment: ["hostName": "production"])
-        XCTAssertEqual(conf.host, "test.api.amadeus.com")
+        let conf = Configuration(environment: ["hostname": "mymock.server.com"])
+        XCTAssertEqual(conf.hostname, "mymock.server.com")
     }
 
+    func testBuildProductionHostname() {
+        let conf = Configuration(environment: ["hostname": "production"])
+        XCTAssertEqual(conf.hostname, "api.amadeus.com")
+    }
+    
+    func testBuildTestingHostname() {
+        let conf = Configuration(environment: ["hostname": "testing"])
+        XCTAssertEqual(conf.hostname, "test.api.amadeus.com")
+    }
+    
+    func testBuildTestingDefaultHostname() {
+        let conf = Configuration(environment: [:])
+        XCTAssertEqual(conf.hostname, "test.api.amadeus.com")
+    }
+    
     func testBuildCustomHost() {
-        let conf = Configuration(environment: ["host": "foo.bar.com"])
-        XCTAssertEqual(conf.host, "foo.bar.com")
+        let conf = Configuration(environment: ["hostname": "foo.bar.com"])
+        XCTAssertEqual(conf.hostname, "foo.bar.com")
     }
 
     func testBuildCustomSsl() {
