@@ -6,7 +6,7 @@ public class Configuration {
     public var ssl = true
     public var port = 443
     public var customAppId = "amadeus-swift-sdk"
-    public var customAppVersion = "1.3.0"
+    public var customAppVersion = "1.3.1"
     public var baseURL = ""
 
     public init(environment: [String: Any]) {

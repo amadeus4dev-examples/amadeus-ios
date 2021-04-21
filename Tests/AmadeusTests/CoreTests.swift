@@ -16,7 +16,7 @@ class CoreTests: XCTestCase {
         XCTAssertTrue(conf.ssl)
         XCTAssertEqual(conf.port, 443)
         XCTAssertEqual(conf.customAppId, "amadeus-swift-sdk")
-        XCTAssertEqual(conf.customAppVersion, "1.3.0")
+        XCTAssertEqual(conf.customAppVersion, "1.3.1")
     }
 
     func testBuildCustomLogger() {

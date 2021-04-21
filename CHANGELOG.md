@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1](https://github.com/amadeus4dev/amadeus-ios/tree/1.3.1) (2021-04-21)
+
+- Fix hostname in configuration class
+- Fix test for `DELETE` method
+- Fix typos in README file
+
 ## [1.3.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.3.0) (2020-11-11)
 
 - Add Flight Price Analysis API
