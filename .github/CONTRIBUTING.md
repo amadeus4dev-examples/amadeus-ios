@@ -26,6 +26,18 @@ export AMADEUS_CLIENT_SECRET="amadeusclientsecret"
 open Amadeus.xcodeproj
 ```
 
+Tests can be run either in Xcode or in the console:
+
+```sh
+swift test
+```
+
+If you want to run a specific test suite, you can pass the `filter` parameter:
+
+```sh
+swift test --filter CoreTests
+```
+
 # Asking Questions
 
 We don't use GitHub as a support forum. If you have issues with the APIs or SDKs, please use [Stack Overflow](https://stackoverflow.com/questions/tagged/amadeus).
