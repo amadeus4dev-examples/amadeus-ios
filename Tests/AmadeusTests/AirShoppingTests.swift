@@ -150,6 +150,54 @@ class AirShoppingTests: XCTestCase {
         }
     }
     
+    func testFlightAvailabilitiesPost() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        let jsonString: String = """
+        {
+            "originDestinations": [
+                {
+                    "id": "1",
+                    "originLocationCode": "MIA",
+                    "destinationLocationCode": "ATL",
+                    "departureDateTime": {
+                        "date": "2021-11-01"
+                    }
+                }
+            ],
+            "travelers": [
+                {
+                    "id": "1",
+                    "travelerType": "ADULT"
+                }
+            ],
+            "sources": [
+                "GDS"
+            ]
+        }
+        """
+        
+        let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
+        do {
+            let body: JSON = try JSON(data: dataFromString!)
+            
+            amadeus.shopping.availability.flightAvailabilities.post(body: body, onCompletion: {
+                result in
+                switch result {
+                case .success(let response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
+                expectation.fulfill()
+            })
+            
+            wait(for: [expectation], timeout: 60)
+            
+        } catch _ as NSError {
+            assertionFailure("JSON not valid")
+        }
+    }
     func testFlightDates() {
         let expectation = XCTestExpectation(description: "TimeOut")
         
