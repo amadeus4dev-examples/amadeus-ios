@@ -15,7 +15,7 @@ public class FlightAvailabilities {
     ///
     public func post(body: JSON, params: [String: String] = [:], onCompletion: @escaping AmadeusResponse) {
         
-        client.post(path: "/v1/shopping/availability/flight-availabilities", body: body, params: params, onCompletion: { result in
+        client.post(path: "v1/shopping/availability/flight-availabilities", body: body, params: params, onCompletion: { result in
             onCompletion(result)
         })
     }
