@@ -236,6 +236,9 @@ amadeus.schedule.flights.get(params:["carrierCode":"AZ",
 // Flight Availabilities Search 
 amadeus.shopping.availability.flightAvailabilities.post(body: jsonBody, onCompletion: { ... })
 
+// Branded Fares Upsell
+amadeus.shopping.flightOffers.upselling.post(body: jsonBody, onCompletion: { ... })
+
 // Seatmap Display
 amadeus.shopping.seatMaps.get(params: ["flight-orderId":"eJzTd9f3NjIJdzUGAAp%2fAiY="],
                               onCompletion: { ... })
