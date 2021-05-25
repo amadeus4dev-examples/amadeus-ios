@@ -43,8 +43,8 @@ class AirShoppingTests: XCTestCase {
         
         amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                          "destinationLocationCode": "BER",
-                                                         "departureDate": "2020-05-16",
-                                                         "returnDate": "2020-05-30",
+                                                         "departureDate": "2021-11-16",
+                                                         "returnDate": "2021-11-30",
                                                          "adults": "2"], onCompletion: {
                                                             result in
                                                             switch result {
@@ -133,6 +133,189 @@ class AirShoppingTests: XCTestCase {
             let body: JSON = try JSON(data: dataFromString!)
             
             amadeus.shopping.flightOffersSearch.post(body: body, onCompletion: {
+                result in
+                switch result {
+                case .success(let response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
+                expectation.fulfill()
+            })
+            
+            wait(for: [expectation], timeout: 60)
+            
+        } catch _ as NSError {
+            assertionFailure("JSON not valid")
+        }
+    }
+    
+    func testFlightAvailabilitiesPost() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        let jsonString: String = """
+        {
+            "originDestinations": [
+                {
+                    "id": "1",
+                    "originLocationCode": "MIA",
+                    "destinationLocationCode": "ATL",
+                    "departureDateTime": {
+                        "date": "2021-11-01"
+                    }
+                }
+            ],
+            "travelers": [
+                {
+                    "id": "1",
+                    "travelerType": "ADULT"
+                }
+            ],
+            "sources": [
+                "GDS"
+            ]
+        }
+        """
+        
+        let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
+        do {
+            let body: JSON = try JSON(data: dataFromString!)
+            
+            amadeus.shopping.availability.flightAvailabilities.post(body: body, onCompletion: {
+                result in
+                switch result {
+                case .success(let response):
+                    XCTAssertEqual(response.statusCode, 200)
+                case .failure(let error):
+                    fatalError(error.localizedDescription)
+                }
+                expectation.fulfill()
+            })
+            
+            wait(for: [expectation], timeout: 60)
+            
+        } catch _ as NSError {
+            assertionFailure("JSON not valid")
+        }
+    }
+    
+    func testUpsellingPost() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        let jsonString: String = """
+        {
+            "data": {
+                "type": "flight-offers-upselling",
+                "flightOffers": [
+                    {
+                        "type": "flight-offer",
+                        "id": "1",
+                        "source": "GDS",
+                        "instantTicketingRequired": false,
+                        "nonHomogeneous": false,
+                        "oneWay": false,
+                        "lastTicketingDate": "2021-05-13",
+                        "numberOfBookableSeats": 7,
+                        "itineraries": [
+                            {
+                                "duration": "PT5H10M",
+                                "segments": [
+                                    {
+                                        "departure": {
+                                            "iataCode": "MEX",
+                                            "terminal": "2",
+                                            "at": "2021-07-04T09:00:00"
+                                        },
+                                        "arrival": {
+                                            "iataCode": "SFO",
+                                            "terminal": "I",
+                                            "at": "2021-07-04T12:10:00"
+                                        },
+                                        "carrierCode": "AM",
+                                        "number": "668",
+                                        "aircraft": {
+                                            "code": "7S8"
+                                        },
+                                        "operating": {
+                                            "carrierCode": "AM"
+                                        },
+                                        "duration": "PT5H10M",
+                                        "id": "1",
+                                        "numberOfStops": 0,
+                                        "blacklistedInEU": false
+                                    }
+                                ]
+                            }
+                        ],
+                        "price": {
+                            "currency": "EUR",
+                            "total": "249.66",
+                            "base": "162.00",
+                            "fees": [
+                                {
+                                    "amount": "0.00",
+                                    "type": "SUPPLIER"
+                                },
+                                {
+                                    "amount": "0.00",
+                                    "type": "TICKETING"
+                                }
+                            ],
+                            "grandTotal": "249.66"
+                        },
+                        "pricingOptions": {
+                            "fareType": [
+                                "PUBLISHED"
+                            ],
+                            "includedCheckedBagsOnly": true
+                        },
+                        "validatingAirlineCodes": [
+                            "AM"
+                        ],
+                        "travelerPricings": [
+                            {
+                                "travelerId": "1",
+                                "fareOption": "STANDARD",
+                                "travelerType": "ADULT",
+                                "price": {
+                                    "currency": "EUR",
+                                    "total": "249.66",
+                                    "base": "162.00"
+                                },
+                                "fareDetailsBySegment": [
+                                    {
+                                        "segmentId": "1",
+                                        "cabin": "BUSINESS",
+                                        "fareBasis": "NNNF0JFS",
+                                        "brandedFare": "PM",
+                                        "class": "I",
+                                        "includedCheckedBags": {
+                                            "quantity": 2
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "payments": [
+                    {
+                        "brand": "VISA_IXARIS",
+                        "binNumber": 123456,
+                        "flightOfferIds": [
+                            1
+                        ]
+                    }
+                ]
+            }
+        }
+        """
+        
+        let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false)
+        do {
+            let body: JSON = try JSON(data: dataFromString!)
+            
+            amadeus.shopping.flightOffers.upselling.post(body: body, onCompletion: {
                 result in
                 switch result {
                 case .success(let response):

@@ -16,6 +16,7 @@ public class Shopping {
     public let hotelOffers: HotelOffers
     public let hotelOfferByHotel: HotelOfferByHotel
     public let activities: Activities
+    public let availability: Availability
 
     private let client: Client
 
@@ -28,6 +29,7 @@ public class Shopping {
         hotelOffers = HotelOffers(client: client)
         hotelOfferByHotel = HotelOfferByHotel(client: client)
         activities = Activities(client: client)
+        self.availability = Availability(client: client)
         self.client = client
     }
 
