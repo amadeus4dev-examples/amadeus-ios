@@ -43,8 +43,8 @@ class AirShoppingTests: XCTestCase {
         
         amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                          "destinationLocationCode": "BER",
-                                                         "departureDate": "2020-05-16",
-                                                         "returnDate": "2020-05-30",
+                                                         "departureDate": "2021-11-16",
+                                                         "returnDate": "2021-11-30",
                                                          "adults": "2"], onCompletion: {
                                                             result in
                                                             switch result {
