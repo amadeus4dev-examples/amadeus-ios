@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.4.0) (2020-05-26)
+
+- Add Flight Availabilities Search
+- Add Branded Fares Upsell
+
 ## [1.3.1](https://github.com/amadeus4dev/amadeus-ios/tree/1.3.1) (2021-04-21)
 
 - Fix hostname in configuration class
