@@ -339,6 +339,10 @@ amadeus.referenceData.locations.pointsOfInterest.bySquare.get(params: ["north": 
 // Retrieve a point of interest by its id
 amadeus.referenceData.locations.pointOfInterest(poiId: "8DA7B6CDCA").get(onCompletion: { ... })
 
+// Location Score
+amadeus.location.analytics.categoryRatedAreas.get.get(params: ["latitude": "41.397158",
+                                                            "longitude": "2.160873",
+                                                            "radius": "2"], onCompletion: { ... })
 
 // Safe Place API
 amadeus.safety.safetyRatedLocations.get(params: ["latitude": "41.397158",
@@ -372,7 +376,6 @@ amadeus.shopping.activities.bySquare.get(params: ["north": "41.397158",
 
 // Tours and Activities by Id
 amadeus.shopping.activity(activityId: "56777").get(onCompletion: { ... })
-
 
 // Trip APIs
 

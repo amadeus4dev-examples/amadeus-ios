@@ -208,7 +208,6 @@ class DestinationContentTests: XCTestCase {
                                                                         result in
                                                                         switch result {
                                                                         case .success(let response):
-                                                                            print(response.data)
                                                                             XCTAssertEqual(response.statusCode, 200)
                                                                         case .failure(let error):
                                                                             fatalError(error.localizedDescription)
