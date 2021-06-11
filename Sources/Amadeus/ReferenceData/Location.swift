@@ -9,11 +9,20 @@ import Foundation
 /// ```
 public class Location {
     private let client: Client
-    private let locationId: String
+    private var locationId: String?
+    // Since we cannot have two 'Location' classes under the
+    // same module, we need to instantiate analytics here even
+    // if it belongs to the endpoint location/analytics/
+    public var analytics: Analytics!
     
     public init(client: Client, locationId: String) {
         self.client = client
         self.locationId = locationId
+    }
+    
+    public init(client: Client) {
+        self.client = client
+        analytics = Analytics (client: client)
     }
     
     /// Returns a list of airports and cities matching a given keyword.
