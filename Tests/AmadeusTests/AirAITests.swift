@@ -117,8 +117,8 @@ class AirAITests: XCTestCase {
 
         amadeus.shopping.flightOffersSearch.get(params: ["originLocationCode": "MAD",
                                                          "destinationLocationCode": "BER",
-                                                         "departureDate": "2020-05-16",
-                                                         "returnDate": "2020-05-30",
+                                                         "departureDate": "2021-12-16",
+                                                         "returnDate": "2021-12-30",
                                                          "adults": "2"], onCompletion: {
                 result in
 

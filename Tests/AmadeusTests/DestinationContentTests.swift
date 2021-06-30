@@ -199,5 +199,24 @@ class DestinationContentTests: XCTestCase {
         
         wait(for: [expectation], timeout: 60)
     }
+    
+    func testLocationScore() {
+        let expectation = XCTestExpectation(description: "TimeOut")
+        
+        amadeus.location.analytics.categoryRatedAreas.get(params: ["latitude": "41.397158",
+                                                                      "longitude": "2.160873"], onCompletion: {
+                                                                        result in
+                                                                        switch result {
+                                                                        case .success(let response):
+                                                                            XCTAssertEqual(response.statusCode, 200)
+                                                                        case .failure(let error):
+                                                                            fatalError(error.localizedDescription)
+                                                                        }
+
+                                                                        expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 60)
+    }
 }
 
