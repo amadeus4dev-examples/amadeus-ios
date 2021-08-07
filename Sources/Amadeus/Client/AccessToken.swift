@@ -63,7 +63,7 @@ public class AccessToken {
                     return
                 }
                 self.access_token = auth
-                self.expires_time = expiresIn + Int(Date().timeIntervalSince1970 * 1000)
+                self.expires_time = expiresIn * 1000 + Int(Date().timeIntervalSince1970 * 1000)
                 onCompletion(.success(auth))
             case .failure(let error):
                 self.access_token = "error"
