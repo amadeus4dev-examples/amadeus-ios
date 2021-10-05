@@ -56,12 +56,14 @@ public class AccessToken {
             
             switch result {
             case .success(let response):
-                guard let auth = response.result["access_token"].string else {
+                guard let auth = response.result["access_token"].string,
+                      let expiresIn = response.result["expires_in"].int
+                else {
                     onCompletion(.failure(.authenticationError))
                     return
                 }
                 self.access_token = auth
-                self.expires_time = self.expires_time * 1000 + Int(Date().timeIntervalSince1970 * 1000)
+                self.expires_time = expiresIn * 1000 + Int(Date().timeIntervalSince1970 * 1000)
                 onCompletion(.success(auth))
             case .failure(let error):
                 self.access_token = "error"
