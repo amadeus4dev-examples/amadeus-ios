@@ -1,0 +1,17 @@
+name: Build Swift SDK
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Choose version
+        run: swift -version
+      - name: Build
+        run: swift build
+      - name: Run tests
+        run: swift --filter AmadeusTests.AmadeusTests
