@@ -1,6 +1,11 @@
 # Changelog
 
-## [1.4.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.4.0) (2020-05-26)
+## [2.0.0](https://github.com/amadeus4dev/amadeus-ios/tree/2.0.0) (2021-11-15)
+
+- Add Trip Parser v3
+- Remove Trip Parser v2
+
+## [1.4.0](https://github.com/amadeus4dev/amadeus-ios/tree/1.4.0) (2021-05-26)
 
 - Add Flight Availabilities Search
 - Add Branded Fares Upsell
