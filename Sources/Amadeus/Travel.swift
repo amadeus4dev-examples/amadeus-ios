@@ -10,11 +10,11 @@ import Foundation
 public class Travel {
     public let analytics: TravelAnalytics
     public let predictions: Predictions
-    public let tripParserJobs: TripParserJobs
+    public let tripParser: TripParser
 
     public init(client: Client) {
         analytics = TravelAnalytics(client: client)
         predictions = Predictions(client: client)
-        tripParserJobs = TripParserJobs(client: client)
+        tripParser = TripParser(client: client)
     }
 }
