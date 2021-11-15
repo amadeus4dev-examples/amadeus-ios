@@ -19,14 +19,16 @@ class TripUtilsTests: XCTestCase {
         super.tearDown()
     }
 
-    func testTripParserJobs() {
+    func testTripParser() {
         let expectation = XCTestExpectation(description: "TimeOut")
 
         let jsonString: String = """
         {
-         "data": {
-            "type": "trip-parser-job",
-            "content": ""
+          "payload": "",
+          "metadata": {
+            "documentType": "PDF",
+            "name": "BOOKING_DOCUMENT",
+            "encoding": "BASE_64"
           }
         }
         """
@@ -35,8 +37,7 @@ class TripUtilsTests: XCTestCase {
         do {
             let body: JSON = try JSON(data: dataFromString!)
 
-             amadeus.travel.tripParserJobs.post(body: body,
-                                                onCompletion: {
+            amadeus.travel.tripParser.post(body: body, onCompletion: {
                 result in
                 switch result {
                 case .success(let response):
@@ -51,42 +52,6 @@ class TripUtilsTests: XCTestCase {
             assertionFailure("JSON not valid")
         }
  
-        wait(for: [expectation], timeout: 60)
-    }
-
-    func testTripParserStatus() {
-        let expectation = XCTestExpectation(description: "TimeOut")
-
-        amadeus.travel.tripParserJobs.status(jobId: "XXX").get(onCompletion: {
-                result in
-                switch result {
-                case .success(let response):
-                    print(response.data)
-                    XCTAssertEqual(response.statusCode, 200)
-                case .failure(let error):
-                    fatalError(error.localizedDescription)
-                }
-                expectation.fulfill()
-        })
-
-        wait(for: [expectation], timeout: 60)
-    }
-
-    func testTripParserResult() {
-        let expectation = XCTestExpectation(description: "TimeOut")
-
-        amadeus.travel.tripParserJobs.result(jobId: "XXX").get(onCompletion: {
-                result in
-                switch result {
-                case .success(let response):
-                    print(response.data)
-                    XCTAssertEqual(response.statusCode, 200)
-                case .failure(let error):
-                    fatalError(error.localizedDescription)
-                }
-                expectation.fulfill()
-        })
-
         wait(for: [expectation], timeout: 60)
     }
 
