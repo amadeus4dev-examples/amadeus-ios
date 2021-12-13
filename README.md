@@ -12,7 +12,7 @@ Amadeus has a rich set of APIs for the travel industry. For more details, check 
 
 ## Installation
 
-The SDK can be installed via [Swift Package Manager](https://swift.org/package-manager). Edit the `Package.swift` manifest file (located inside the project directory), and add the `amadeus-ios` dependency:
+The SDK can be installed via [Swift Package Manager](https://swift.org/pa gckage-manager). Edit the `Package.swift` manifest file (located inside the project directory), and add the `amadeus-ios` dependency:
 
 ```swift
     import PackageDescription
@@ -248,7 +248,7 @@ amadeus.shopping.seatMaps.post(body: body, onCompletion: { ... })
 // Flight Price Analysis
 amadeus.analytics.itineraryPriceMetrics.get(params: ["originIataCode": "MAD",
                                                      "destinationIataCode": "CDG",
-                                                     "departureDate": "2021-01-15"],
+                                                     "departureDate": "2022-01-15"],
                                             onCompletion: { ... })
 
 // Airport On-Time Performance
