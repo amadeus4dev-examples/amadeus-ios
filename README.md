@@ -1,6 +1,6 @@
 # Amadeus iOS SDK
 
-[![Build Swift SDK](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
+[![build](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
 
 
 Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
