@@ -1,6 +1,6 @@
 # Amadeus iOS SDK
 
-[![Travis CI](https://travis-ci.org/amadeus4dev/amadeus-ios.svg?branch=master)](https://travis-ci.org/amadeus4dev/amadeus-ios) [![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
+[![Build Swift SDK](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/amadeus4dev/amadeus-ios/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
 
 
 Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
@@ -403,5 +403,4 @@ This library is released under the [MIT License](LICENSE).
 
 Our [developer support team](https://developers.amadeus.com/support) is here to help you. You can also find us on [StackOverflow](https://stackoverflow.com/questions/tagged/amadeus) and [email](mailto:developers@amadeus.com).
 
-[travis]: http://travis-ci.org/amadeus4dev/amadeus-ios
 [support]: http://developers.amadeus.com/support
