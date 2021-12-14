@@ -1,7 +1,0 @@
-language: objective-c
-osx_image: xcode11.1
-script:
-  - swift -version
-  - swift build
-  - swift test --filter AmadeusTests.AmadeusTests
-
