@@ -13,5 +13,3 @@ jobs:
         run: swift -version
       - name: Build
         run: swift build
-      - name: Run tests
-        run: swift test --filter AmadeusTests.AmadeusTests
