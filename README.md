@@ -231,7 +231,7 @@ amadeus.shopping.flightDates.get(params:["origin": "LHR",
 // On demand flight status
 amadeus.schedule.flights.get(params:["carrierCode":"AZ",
                                      "flightNumber":"319",
-                                     "scheduledDepartureDate":"2021-03-13"], onCompletion: { ... })
+                                     "scheduledDepartureDate":"2022-03-13"], onCompletion: { ... })
 
 // Flight Availabilities Search 
 amadeus.shopping.availability.flightAvailabilities.post(body: jsonBody, onCompletion: { ... })
