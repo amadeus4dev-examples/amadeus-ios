@@ -390,9 +390,6 @@ amadeus.travel.predictions.tripPurpose.get(params: ["originLocationCode": "NYC",
 // Trip Parser 
 amadeus.travel.tripParser.post(body: jsonBody, onCompletion: { ... })
 
-// AI-Generated Photos
-amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
-                                        onCompletion: { ... })
 ```
 
 ## License

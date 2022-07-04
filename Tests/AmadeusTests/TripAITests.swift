@@ -42,24 +42,5 @@ class TripAITests: XCTestCase {
         wait(for: [expectation], timeout: 60)
     }
     
-    
-    func testAIGeneratedPhotos() {
-        let expectation = XCTestExpectation(description: "TimeOut")
-        
-        amadeus.media.files.generatedPhotos.get(params: ["category": "MOUNTAIN"],
-                                                onCompletion: { result in
-                                                    
-                                                    switch result {
-                                                    case .success(let response):
-                                                        print(response.data)
-                                                        XCTAssertEqual(response.statusCode, 200)
-                                                    case .failure(let error):
-                                                        fatalError(error.localizedDescription)
-                                                    }
-                                                    expectation.fulfill()
-        })
-        
-        wait(for: [expectation], timeout: 60)
-    }
 }
 
