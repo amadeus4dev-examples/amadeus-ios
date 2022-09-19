@@ -5,6 +5,10 @@
 
 Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
+## :warning: Important message :warning:
+
+:heavy_exclamation_mark: This SDK is maintained **by the developer community only**. The Amadeus for Developers team doesn't support or maintain it. :heavy_exclamation_mark:
+
 ## Prerequisites
 
 - Swift 5.0 or higher
