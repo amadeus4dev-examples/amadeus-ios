@@ -30,7 +30,7 @@ public class HotelOffers {
     /// - Returns:
     ///    `JSON` object
     public func get(params: [String: String], onCompletion: @escaping AmadeusResponse) {
-        client.get(path: "v2/shopping/hotel-offers", params: params, onCompletion: {
+        client.get(path: "v3/shopping/hotel-offers", params: params, onCompletion: {
             result in
             onCompletion(result)
         })
